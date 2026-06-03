@@ -1,0 +1,500 @@
+'use client';
+
+import { useState } from 'react';
+import { 
+Sparkles, 
+Leaf, 
+Trash2, 
+Layers, 
+Check, 
+ChevronDown, 
+Loader2, 
+Droplet, 
+Box, 
+Smile 
+} from 'lucide-react';
+
+// ==========================================
+// CONFIGURAZIONE PRODOTTI E FRAGRANZE
+// (Puoi aggiungere o rimuovere fragranze qui)
+// ==========================================
+const FRAGRANCES = [
+{
+  id: 'champagne',
+  name: 'Champagne',
+  color: 'bg-[#E8DCC4]', // Colore identificativo
+  badge: 'Più Amato',
+  description: 'Una fragranza raffinata, leggera e sofisticata che dona un tocco di eleganza ai tuoi capi quotidiani.',
+  notes: 'Note fiorite e leggermente speziate',
+},
+{
+  id: 'brezza',
+  name: 'Brezza Oceanica',
+  color: 'bg-[#A0C4DF]',
+  badge: 'Freschezza',
+  description: 'La sensazione del bucato asciugato all’aria aperta sul mare. Pulito, fresco e rigenerante.',
+  notes: 'Note marine e di aria pulita',
+},
+{
+  id: 'lavanda',
+  name: 'Lavanda',
+  color: 'bg-[#C8BFE7]',
+  badge: 'Classico',
+  description: 'Il profumo tradizionale del pulito per eccellenza. Rilassante, naturale e protettivo.',
+  notes: 'Estratti naturali di lavanda',
+},
+{
+  id: 'senza-fragranza',
+  name: 'Senza Fragranza',
+  color: 'bg-slate-200',
+  badge: 'Ipoallergenico',
+  description: 'Zero profumi, zero potenziali allergeni. Ideale per pelli estremamente sensibili e neonati.',
+  notes: '100% puro e dermatologicamente neutro',
+}
+];
+
+// ==========================================
+// CONFIGURAZIONE TESTIMONIAL (Dati dai tuoi test!)
+// ==========================================
+const REVIEWS = [
+{
+  name: "Elena M.",
+  stars: 5,
+  tag: "Champagne",
+  text: "È una bellissima proposta, finalmente niente sprechi e flaconi giganti che inquinano. I capi sono usciti morbidissimi."
+},
+{
+  name: "Marco T.",
+  stars: 5,
+  tag: "Brezza Oceanica",
+  text: "Ero scettico sulla rimozione delle macchie e sulla schiuma, ma mi sono dovuto ricredere. I bianchi sono super luminosi."
+},
+{
+  name: "Sara P.",
+  stars: 4,
+  tag: "Senza Fragranza",
+  text: "Ideale per me che ho la pelle sensibile. I vestiti non restano rigidi anche senza ammorbidente. Lo consiglio assolutamente."
+}
+];
+
+export default function Home() {
+// Stati per l'interattività della pagina
+const [activeFragrance, setActiveFragrance] = useState(FRAGRANCES[0]);
+const [email, setEmail] = useState('');
+const [formStatus, setFormStatus] = useState('idle'); // 'idle', 'loading', 'success', 'error'
+const [openFaq, setOpenFaq] = useState(null);
+
+// Gestione iscrizione Newsletter (Formspree o API)
+const handleSubscribe = async (e) => {
+  e.preventDefault();
+  if (!email) return;
+
+  setFormStatus('loading');
+
+  try {
+    // SOSTITUISCI QUESTO URL CON IL TUO ID FORMSPREE
+    // Esempio: https://formspree.io/f/vostro_id
+    const FORMSPREE_URL = 'https://formspree.io/f/YOUR_ENDPOINT_HERE'; 
+    
+    const response = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email, tag: 'Sconto_Lancio_10' }),
+    });
+
+    if (response.ok) {
+      setFormStatus('success');
+      setEmail('');
+    } else {
+      setFormStatus('error');
+    }
+  } catch (error) {
+    setFormStatus('error');
+  }
+};
+
+return (
+  <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans antialiased selection:bg-[#3B82F6] selection:text-white">
+    
+    {/* ================= NAVBAR ================= */}
+    <header className="sticky top-0 z-50 backdrop-blur-md bg-[#F8FAFC]/80 border-b border-slate-200/85">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <span className="text-2xl font-extrabold tracking-tight text-[#112F4E]">
+          new<span className="text-[#3B82F6]">way</span>
+        </span>
+        <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+          <a href="#come-funziona" className="hover:text-[#112F4E] transition-colors">Come funziona</a>
+          <a href="#fragranze" className="hover:text-[#112F4E] transition-colors">Fragranze</a>
+          <a href="#recensioni" className="hover:text-[#112F4E] transition-colors">Feedback</a>
+          <a href="#faq" className="hover:text-[#112F4E] transition-colors">FAQ</a>
+        </nav>
+        <a 
+          href="#iscriviti" 
+          className="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold tracking-wide text-white bg-[#112F4E] rounded-full hover:bg-[#3B82F6] active:scale-95 transition-all duration-200 shadow-sm"
+        >
+          Ottieni 10% Sconto
+        </a>
+      </div>
+    </header>
+
+    {/* ================= HERO SECTION ================= */}
+    <section className="relative pt-12 pb-20 md:py-32 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+        
+        {/* Testi Hero */}
+        <div className="md:col-span-7 flex flex-col justify-center space-y-6">
+          <div className="inline-flex items-center space-x-2 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs px-3 py-1 rounded-full w-fit">
+            <Leaf className="w-3.5 h-3.5" />
+            <span>Detersivo 100% Biodegradabile & Plastic-Free</span>
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl font-extrabold text-[#112F4E] leading-tight tracking-tight">
+            Il bucato, <br className="hidden md:inline"/>
+            <span className="text-[#3B82F6] relative">
+              senza il peso
+            </span> della plastica.
+          </h1>
+          
+          <p className="text-lg text-slate-600 max-w-xl leading-relaxed">
+            Foglietti predosati ultra-concentrati. Zero sprechi di spazio, zero plastica monouso, massima morbidezza per i tuoi capi. Il modo intelligente di fare la lavatrice.
+          </p>
+
+          {/* Iconcine di Valore Voci Style Guide */}
+          <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-200">
+            <div className="flex items-center space-x-2.5">
+              <div className="p-2 bg-blue-50 text-[#3B82F6] rounded-lg">
+                <Trash2 className="w-5 h-5" />
+              </div>
+              <span className="text-xs font-bold text-slate-700 leading-tight">Zero Plastica</span>
+            </div>
+            <div className="flex items-center space-x-2.5">
+              <div className="p-2 bg-blue-50 text-[#3B82F6] rounded-lg">
+                <Layers className="w-5 h-5" />
+              </div>
+              <span className="text-xs font-bold text-slate-700 leading-tight">Salvaspazio</span>
+            </div>
+            <div className="flex items-center space-x-2.5">
+              <div className="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
+                <Sparkles className="w-5 h-5" />
+              </div>
+              <span className="text-xs font-bold text-slate-700 leading-tight">Vegan & Cruelty Free</span>
+            </div>
+          </div>
+
+          {/* Email Capture */}
+          <div id="iscriviti" className="pt-4 max-w-md">
+            <p className="text-xs font-bold text-[#112F4E] uppercase tracking-wider mb-2">Iscriviti per il lancio</p>
+            <h4 className="text-sm text-slate-600 mb-3">Ricevi in anteprima il <span className="font-bold text-[#3B82F6]">10% di sconto</span> sul primo ordine.</h4>
+            
+            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
+              <input 
+                type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="La tua migliore email..."
+                required
+                className="flex-grow px-4 py-3 text-sm rounded-xl border border-slate-200 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3B82F6] transition-all"
+                disabled={formStatus === 'loading' || formStatus === 'success'}
+              />
+              <button 
+                type="submit" 
+                disabled={formStatus === 'loading' || formStatus === 'success'}
+                className="px-6 py-3 text-sm font-semibold text-white bg-[#112F4E] rounded-xl hover:bg-[#3B82F6] disabled:bg-slate-300 transition-all flex items-center justify-center min-w-[120px]"
+              >
+                {formStatus === 'loading' ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : formStatus === 'success' ? (
+                  'Iscritto! 🎉'
+                ) : (
+                  'Ricevi lo sconto'
+                )}
+              </button>
+            </form>
+            
+            {formStatus === 'success' && (
+              <p className="text-xs text-emerald-600 mt-2 font-medium">Grazie! Ti abbiamo riservato il codice sconto per il lancio.</p>
+            )}
+            {formStatus === 'error' && (
+              <p className="text-xs text-red-500 mt-2 font-medium">Ops! Qualcosa è andato storto, riprova o scrivici.</p>
+            )}
+          </div>
+        </div>
+
+        {/* Render Grafico Minimal del Prodotto (Destra) */}
+        <div className="md:col-span-5 flex justify-center relative">
+          <div className="w-72 h-96 md:w-80 md:h-[420px] bg-gradient-to-tr from-[#112F4E] to-[#3B82F6] rounded-3xl p-8 flex flex-col justify-between text-white shadow-2xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-10 -mt-10 blur-xl"></div>
+            
+            <div className="flex justify-between items-start z-10">
+              <span className="text-xl font-extrabold tracking-tight">newway</span>
+              <span className="text-[10px] uppercase font-bold tracking-widest border border-white/30 px-2 py-0.5 rounded-full bg-white/10">Laundry Sheet</span>
+            </div>
+
+            <div className="space-y-4 z-10">
+              <div className="w-16 h-1 bg-white/40 rounded-full"></div>
+              <h3 className="text-2xl font-bold tracking-tight">Il bucato del futuro.</h3>
+              <p className="text-xs text-white/80 leading-relaxed">30 lavaggi in un packaging di cartone riciclato sottile come un libro.</p>
+            </div>
+
+            <div className="flex items-center justify-between border-t border-white/20 pt-4 z-10">
+              <div className="flex space-x-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-400"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-blue-400"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-purple-400"></div>
+              </div>
+              <span className="text-[11px] font-semibold text-white/90">Plastic Free</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    {/* ================= COME FUNZIONA ================= */}
+    <section id="come-funziona" className="py-20 bg-white border-y border-slate-100">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center max-w-xl mx-auto mb-16">
+          <h2 className="text-xs font-bold text-[#3B82F6] uppercase tracking-widest mb-3">Semplicità d'uso</h2>
+          <h3 className="text-3xl font-extrabold text-[#112F4E]">Come funziona? Tre passaggi.</h3>
+          <p className="text-slate-500 mt-2">Dimentica dosatori di plastica appiccicosi e flaconi pesanti da sollevare.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          
+          {/* Step 1 */}
+          <div className="flex flex-col items-center text-center group">
+            <div className="w-16 h-16 rounded-2xl bg-blue-50 text-[#3B82F6] flex items-center justify-center mb-6 border border-blue-100 group-hover:scale-110 transition-transform duration-300">
+              <Box className="w-8 h-8" />
+            </div>
+            <h4 className="text-lg font-bold text-[#112F4E] mb-2">1. Prendi un foglietto</h4>
+            <p className="text-sm text-slate-500 leading-relaxed max-w-xs">
+              Estrai un singolo foglietto dalla scatola di cartone salvaspazio. Pulito, asciutto, predosato.
+            </p>
+          </div>
+
+          {/* Step 2 */}
+          <div className="flex flex-col items-center text-center group">
+            <div className="w-16 h-16 rounded-2xl bg-blue-50 text-[#3B82F6] flex items-center justify-center mb-6 border border-blue-100 group-hover:scale-110 transition-transform duration-300">
+              <Droplet className="w-8 h-8" />
+            </div>
+            <h4 className="text-lg font-bold text-[#112F4E] mb-2">2. Mettilo nel cestello</h4>
+            <p className="text-sm text-slate-500 leading-relaxed max-w-xs">
+              Inserisci il foglietto direttamente nel cestello della lavatrice, sotto o sopra i vestiti.
+            </p>
+          </div>
+
+          {/* Step 3 */}
+          <div className="flex flex-col items-center text-center group">
+            <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 border border-emerald-100 group-hover:scale-110 transition-transform duration-300">
+              <Smile className="w-8 h-8" />
+            </div>
+            <h4 className="text-lg font-bold text-[#112F4E] mb-2">3. Avvia il lavaggio</h4>
+            <p className="text-sm text-slate-500 leading-relaxed max-w-xs">
+              Aggiungi il bucato e avvia. Il foglio si dissolve istantaneamente a contatto con l'acqua, senza lasciare residui.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* ================= FRAGRANZE & FORMATI (MODULAR TABS) ================= */}
+    <section id="fragranze" className="py-20 bg-slate-50">
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="text-center max-w-xl mx-auto mb-12">
+          <h2 className="text-xs font-bold text-[#3B82F6] uppercase tracking-widest mb-3">La Gamma</h2>
+          <h3 className="text-3xl font-extrabold text-[#112F4E]">Scegli la tua atmosfera</h3>
+          <p className="text-slate-500 mt-2">Dalle essenze floreali ricercate fino alla purezza del "senza profumo".</p>
+        </div>
+
+        {/* TABS SELECTOR */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8 p-1.5 bg-slate-200/60 rounded-2xl w-fit mx-auto">
+          {FRAGRANCES.map((frag) => (
+            <button
+              key={frag.id}
+              onClick={() => setActiveFragrance(frag)}
+              className={`px-4 py-2 text-xs font-bold rounded-xl transition-all ${
+                activeFragrance.id === frag.id
+                  ? 'bg-white text-[#112F4E] shadow-sm'
+                  : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              {frag.name}
+            </button>
+          ))}
+        </div>
+
+        {/* ACTIVE TAB DETAILS */}
+        <div className="bg-white rounded-3xl p-8 border border-slate-200/60 shadow-sm flex flex-col md:flex-row items-center gap-8 transition-all duration-300">
+          {/* Visual color block */}
+          <div className={`w-32 h-32 md:w-40 md:h-40 rounded-2xl ${activeFragrance.color} flex items-center justify-center shadow-inner relative overflow-hidden shrink-0`}>
+            <div className="absolute inset-0 bg-white/20 mix-blend-overlay"></div>
+            <Droplet className="w-16 h-16 text-white/80" />
+          </div>
+
+          {/* Contenuto descrittivo */}
+          <div className="flex-grow space-y-4 text-center md:text-left">
+            <div className="flex flex-col md:flex-row md:items-center gap-2">
+              <h4 className="text-2xl font-extrabold text-[#112F4E]">{activeFragrance.name}</h4>
+              <span className="px-2.5 py-0.5 text-[10px] font-bold text-[#3B82F6] bg-blue-50 border border-blue-200 rounded-full w-fit mx-auto md:mx-0">
+                {activeFragrance.badge}
+              </span>
+            </div>
+            <p className="text-slate-600 text-sm leading-relaxed">
+              {activeFragrance.description}
+            </p>
+            <div className="pt-2 border-t border-slate-100 flex flex-col md:flex-row gap-4 text-xs font-bold text-slate-500">
+              <div>🌱 Bio-formula concentrata</div>
+              <div>✨ {activeFragrance.notes}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ================= TESTIMONIALS (REAL FEEDBACK) ================= */}
+    <section id="recensioni" className="py-20 bg-white">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center max-w-xl mx-auto mb-16">
+          <h2 className="text-xs font-bold text-[#3B82F6] uppercase tracking-widest mb-3">La prova sul campo</h2>
+          <h3 className="text-3xl font-extrabold text-[#112F4E]">Cosa dice chi lo ha già provato?</h3>
+          <p className="text-slate-500 mt-2">Dati reali estratti dai nostri primi test d'efficacia.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {REVIEWS.map((review, i) => (
+            <div key={i} className="p-6 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col justify-between space-y-4">
+              <div className="space-y-2">
+                {/* Stelle */}
+                <div className="flex text-amber-400 text-sm">
+                  {"★".repeat(review.stars)}
+                  {"☆".repeat(5 - review.stars)}
+                </div>
+                <p className="text-sm text-slate-600 leading-relaxed italic">
+                  "{review.text}"
+                </p>
+              </div>
+              
+              <div className="flex items-center justify-between border-t border-slate-200/60 pt-4">
+                <span className="text-xs font-bold text-slate-700">{review.name}</span>
+                <span className="text-[10px] font-semibold text-slate-400 bg-white border border-slate-100 px-2 py-0.5 rounded-full">
+                  Fragranza: {review.tag}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ================= FAQ SECTION ================= */}
+    <section id="faq" className="py-20 bg-slate-50 border-t border-slate-100">
+      <div className="max-w-3xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <h2 className="text-xs font-bold text-[#3B82F6] uppercase tracking-widest mb-3">Dubbi?</h2>
+          <h3 className="text-3xl font-extrabold text-[#112F4E]">Domande frequenti</h3>
+        </div>
+
+        <div className="space-y-4">
+          
+          {/* FAQ 1 */}
+          <div className="bg-white rounded-2xl border border-slate-200/60 overflow-hidden">
+            <button 
+              onClick={() => setOpenFaq(openFaq === 0 ? null : 0)}
+              className="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-[#112F4E] hover:text-[#3B82F6] transition-colors"
+            >
+              <span>Perché fa meno schiuma rispetto ai detersivi liquidi tradizionali?</span>
+              <ChevronDown className={`w-4 h-4 transform transition-transform ${openFaq === 0 ? 'rotate-180' : ''}`} />
+            </button>
+            {openFaq === 0 && (
+              <div className="px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-50 pt-3">
+                La schiuma non equivale al potere pulente! Molti detersivi aggiungono agenti schiumogeni artificiali solo per impatto visivo. I nostri foglietti usano formule mirate a bassa schiuma: questo riduce il bisogno di infiniti risciacqui, permettendoti di risparmiare acqua ed elettricità.
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 2 */}
+          <div className="bg-white rounded-2xl border border-slate-200/60 overflow-hidden">
+            <button 
+              onClick={() => setOpenFaq(openFaq === 1 ? null : 1)}
+              className="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-[#112F4E] hover:text-[#3B82F6] transition-colors"
+            >
+              <span>Come si comportano sulle macchie ostinate?</span>
+              <ChevronDown className={`w-4 h-4 transform transition-transform ${openFaq === 1 ? 'rotate-180' : ''}`} />
+            </button>
+            {openFaq === 1 && (
+              <div className="px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-50 pt-3">
+                I foglietti newway sono perfetti per lo sporco generico e i lavaggi quotidiani anche a freddo (30°C). Per macchie molto difficili e vecchie (come sangue, sugo secco o trucco), consigliamo di pretrattare la macchia a mano o inumidire un piccolo pezzo di foglietto direttamente sulla macchia prima di metterlo in lavatrice.
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 3 */}
+          <div className="bg-white rounded-2xl border border-slate-200/60 overflow-hidden">
+            <button 
+              onClick={() => setOpenFaq(openFaq === 2 ? null : 2)}
+              className="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-[#112F4E] hover:text-[#3B82F6] transition-colors"
+            >
+              <span>Il foglio si scioglie completamente anche a 30 gradi?</span>
+              <ChevronDown className={`w-4 h-4 transform transition-transform ${openFaq === 2 ? 'rotate-180' : ''}`} />
+            </button>
+            {openFaq === 2 && (
+              <div className="px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-50 pt-3">
+                Assolutamente sì. La nostra formula è studiata per dissolversi completamente in acqua a qualsiasi temperatura (anche a 20° e 30° gradi) e sia nei lavaggi in lavatrice che in quelli a mano. Non lascia nessun tipo di alone o residuo fibroso sui vestiti.
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 4 */}
+          <div className="bg-white rounded-2xl border border-slate-200/60 overflow-hidden">
+            <button 
+              onClick={() => setOpenFaq(openFaq === 3 ? null : 3)}
+              className="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-[#112F4E] hover:text-[#3B82F6] transition-colors"
+            >
+              <span>Dove posso conservare la confezione?</span>
+              <ChevronDown className={`w-4 h-4 transform transition-transform ${openFaq === 3 ? 'rotate-180' : ''}`} />
+            </button>
+            {openFaq === 3 && (
+              <div className="px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-50 pt-3">
+                La scatola di cartone è incredibilmente compatta e occupa 1/10 dello spazio di un flacone tradizionale. Conservala semplicemente in un luogo asciutto per evitare che i foglietti assorbano umidità prima dell’uso.
+              </div>
+            )}
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* ================= FOOTER ================= */}
+    <footer className="bg-[#112F4E] text-white/80 py-12 border-t border-white/10">
+      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <div>
+          <span className="text-2xl font-extrabold tracking-tight text-white mb-4 block">
+            new<span className="text-[#3B82F6]">way</span>
+          </span>
+          <p className="text-xs text-white/60 leading-relaxed">
+            Il brand che sta ridisegnando l'idea di pulito. Sostenibile, leggero, efficace.
+          </p>
+        </div>
+
+        <div className="flex flex-col space-y-2 text-xs">
+          <h5 className="font-bold text-white uppercase tracking-wider mb-2">Legal & Supporto</h5>
+          <a href="#" className="hover:text-white transition-colors">Termini e Condizioni</a>
+          <a href="#" className="hover:text-white transition-colors">Informativa sulla Privacy</a>
+          <a href="#" className="hover:text-white transition-colors">Contattaci</a>
+        </div>
+
+        <div className="text-xs text-white/60 flex flex-col justify-between">
+          <p>© 2026 Ken Ray Communications Sdn Bhd / newway. Tutti i diritti riservati.</p>
+          <p className="mt-4 md:mt-0 text-[10px]">Made for Next.js and Vercel.</p>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+);
+}
