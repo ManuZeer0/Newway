@@ -1,0 +1,557 @@
+<html lang="it" class="scroll-smooth"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>newway | Il bucato, senza il peso della plastica</title>
+  
+  <!-- Font Lato -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&amp;display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Configurazione Colori Centralizzata -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            payBlue: '#112F4E',       /* Blu Scuro Primario */
+            paleBlue: '#3B82F6',      /* Blu Vibrante */
+            leafGreen: '#84CC16',     /* Verde Eco / Successo */
+            bergamotGold: '#D97706',  /* Arancio Bergamotto */
+            linenSlate: '#64748B',    /* Grigio Fresco Lino */
+            neutralSlate: '#F8FAFC'   /* Sfondo Grigio Chiaro */
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Alpine.js per l'interattività -->
+  <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    body { font-family: 'Lato', sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-neutralSlate text-slate-900 antialiased selection:bg-paleBlue selection:text-white" x-data="{ 
+        openFaq: null, 
+        boxFragrance: 'brezza',
+        modalOpen: false,
+        modalTitle: '',
+        modalDesc: '',
+        modalNotes: '',
+        modalColor: '',
+        currentIndex: 0,
+        carouselTransitioning: false,
+        
+        /* Funzione per l'animazione smooth del carousel */
+        slideCarousel(direction) {
+          this.carouselTransitioning = true;
+          setTimeout(() =&gt; {
+            if (direction === 'next') {
+              this.currentIndex = (this.currentIndex + 1) % 5;
+            } else {
+              this.currentIndex = (this.currentIndex - 1 + 5) % 5;
+            }
+            this.carouselTransitioning = false;
+          }, 200);
+        },
+
+        reviews: [
+          { name: 'Elena M.', stars: 5, tag: 'Brezza Oceanica', text: 'È una bellissima proposta, finalmente niente sprechi e flaconi giganti che inquinano. I capi sono usciti morbidissimi.' },
+          { name: 'Marco T.', stars: 5, tag: 'Brezza Oceanica', text: 'Ero scettico sulla rimozione delle macchie e sulla schiuma, ma mi sono dovuto ricredere. I bianchi sono usciti luminosissimi.' },
+          { name: 'Sara P.', stars: 4, tag: 'Senza Profumo', text: 'Ideale per me che ho la pelle sensibile. I vestiti non restano rigidi anche senza ammorbidente e l\'odore è super delicato.' },
+          { name: 'Chiara L.', stars: 5, tag: 'Fresco Lino', text: 'La comodità di non dover portare pesi dal supermercato è imbattibile. Ottima l\'efficacia anche a soli 30 gradi.' },
+          { name: 'Davide K.', stars: 5, tag: 'Bergamotto', text: 'Bella proposta, ecologica e di design. Il profumo di bergamotto è persistente ma senza dare fastidio. Consigliato!' }
+        ]
+      }">
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-neutralSlate/80 border-b border-slate-200 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <span class="text-2xl font-extrabold tracking-tight text-payBlue">
+        new<span class="text-paleBlue">way</span>
+      </span>
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+        <a href="#come-funziona" class="hover:text-payBlue transition-colors duration-200">Come funziona</a>
+        <a href="#fragranze" class="hover:text-payBlue transition-colors duration-200">Le Nostre Fragranze</a>
+        <a href="#recensioni" class="hover:text-payBlue transition-colors duration-200">Feedback</a>
+        <a href="#faq" class="hover:text-payBlue transition-colors duration-200">FAQ</a>
+      </nav>
+      <a href="#iscriviti-anchor" class="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold tracking-wide text-white bg-payBlue rounded-full hover:bg-paleBlue hover:shadow-md active:scale-95 transition-all duration-300">
+        Ottieni 10% Sconto
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative pt-12 pb-16 md:py-20 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+      
+      <!-- Testi Hero (Sinistra) -->
+      <div class="md:col-span-7 flex flex-col justify-center space-y-6">
+        <div class="inline-flex items-center space-x-2 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs px-3 py-1 rounded-full w-fit font-semibold">
+          <!-- Icona Foglia SVG -->
+          <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18M12 3c-4.97 0-9 4.03-9 9 0 2.12.86 4.07 2.25 5.5L12 21l6.75-3.5C20.14 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"></path></svg>
+          <span>Detersivo 100% Biodegradabile &amp; Plastic-Free</span>
+        </div>
+        
+        <h1 class="text-4xl md:text-6xl font-extrabold text-payBlue leading-tight tracking-tight">
+          Il bucato, <br class="hidden md:inline">
+          <span class="text-paleBlue relative">senza il peso</span> della plastica.
+        </h1>
+        
+        <p class="text-lg text-slate-600 max-w-xl leading-relaxed">
+          Foglietti predosati ultra-concentrati. Zero sprechi di spazio, zero plastica monouso, massima morbidezza per i tuoi capi. Il modo intelligente di fare la lavatrice.
+        </p>
+
+        <!-- Iconcine di Valore Personalizzate -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-slate-200">
+          
+          <!-- Zero Plastica (Bottiglia sbarrata) -->
+          <div class="flex items-center space-x-2.5 group">
+            <div class="p-2 bg-blue-50 text-paleBlue rounded-lg shrink-0 transition-transform duration-300 group-hover:scale-110">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m-3-9V4M7.5 7.5h9a1.5 1.5 0 011.5 1.5v11a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 016 20V9a1.5 1.5 0 011.5-1.5z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 3l18 18" stroke="red"></path>
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-700 leading-tight">Zero Plastica</span>
+          </div>
+          
+          <!-- Salvaspazio -->
+          <div class="flex items-center space-x-2.5 group">
+            <div class="p-2 bg-blue-50 text-paleBlue rounded-lg shrink-0 transition-transform duration-300 group-hover:scale-110">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V6a2 2 0 012-2h2M4 16v2a2 2 0 002 2h2M20 8V6a2 2 0 00-2-2h-2M20 16v2a2 2 0 01-2 2h-2M9 12h6M12 9v6"></path>
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-700 leading-tight">Salvaspazio</span>
+          </div>
+
+          <!-- Vegan Badge -->
+          <div class="flex items-center space-x-2.5 group">
+            <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg shrink-0 transition-transform duration-300 group-hover:scale-110">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-1.5 3-4.5 4.5-7.5 4.5 0 4.5 3.5 9 7.5 11 4-2 7.5-6.5 7.5-11-3 0-6-1.5-7.5-4.5z"></path>
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-700 leading-tight">Certificato Vegan</span>
+          </div>
+
+          <!-- Cruelty Free Badge -->
+          <div class="flex items-center space-x-2.5 group">
+            <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg shrink-0 transition-transform duration-300 group-hover:scale-110">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 14c2.5 0 4-2 4-5.5s-1.5-4.5-4-4.5-4 1-4 4.5 1.5 5.5 4 5.5zM6 10c0-2 1-4.5 3-4.5s2 1 2 4.5S9.5 14 8 14s-2-2-2-4zM18 10c0-2-1-4.5-3-4.5s-2 1-2 4.5 1.5 4 3 4 2-2 2-4z"></path>
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-slate-700 leading-tight">Cruelty Free</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Box Prodotto con Pallini Cliccabili "Immersivi" (Destra) -->
+      <div class="md:col-span-5 flex flex-col items-center">
+        <div class="w-72 h-[340px] md:w-80 md:h-[360px] rounded-3xl p-8 flex flex-col justify-between text-white shadow-2xl relative overflow-hidden transition-all duration-500 ease-in-out" :class="{
+               'bg-gradient-to-tr from-payBlue to-paleBlue': boxFragrance === 'brezza',
+               'bg-gradient-to-tr from-payBlue to-bergamotGold': boxFragrance === 'bergamotto',
+               'bg-gradient-to-tr from-payBlue to-linenSlate': boxFragrance === 'lino'
+             }">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-10 -mt-10 blur-xl"></div>
+          
+          <div class="flex justify-between items-start z-10">
+            <span class="text-xl font-extrabold tracking-tight">newway</span>
+            <span class="text-[10px] uppercase font-bold tracking-widest border border-white/30 px-2 py-0.5 rounded-full bg-white/10">Laundry Sheet</span>
+          </div>
+
+          <div class="space-y-3 z-10">
+            <div class="w-16 h-1 bg-white/40 rounded-full"></div>
+            <!-- Testo dinamico -->
+            <h3 class="text-2xl font-bold tracking-tight" x-text="boxFragrance === 'brezza' ? 'Brezza Oceanica' : boxFragrance === 'bergamotto' ? 'Bergamotto Frizzante' : 'Fresco Lino' "></h3>
+            <p class="text-xs text-white/85 leading-relaxed" x-text="boxFragrance === 'brezza' ? 'La freschezza rigenerante dell\'oceano e del bucato steso al sole direttamente sui tuoi capi.' : boxFragrance === 'bergamotto' ? 'Una carica agrumata, frizzante ed energizzante per chi ama i profumi persistenti ma naturali.' : 'La fragranza classica, rassicurante e pulita del lino appena lavato.' "></p>
+          </div>
+
+          <!-- Cornice Inferiore del Box con Selettori Interni -->
+          <div class="flex items-center justify-between border-t border-white/20 pt-4 z-10">
+            
+            <!-- Pallini Cliccabili "Immersivi" (Scompaiono se attivi) -->
+            <div class="flex space-x-3 items-center h-5">
+              
+              <!-- Pallino Brezza (Blu) -->
+              <button @click="boxFragrance = 'brezza'" class="w-3.5 h-3.5 rounded-full border border-white/80 transition-all duration-500 focus:outline-none" :class="boxFragrance === 'brezza' ? 'opacity-0 scale-0 w-0 h-0 border-transparent pointer-events-none' : 'bg-paleBlue border-paleBlue hover:scale-110'"></button>
+              
+              <!-- Pallino Bergamotto (Arancio) -->
+              <button @click="boxFragrance = 'bergamotto'" class="w-3.5 h-3.5 rounded-full border border-white/80 transition-all duration-500 focus:outline-none" :class="boxFragrance === 'bergamotto' ? 'opacity-0 scale-0 w-0 h-0 border-transparent pointer-events-none' : 'bg-bergamotGold border-bergamotGold hover:scale-110'"></button>
+              
+              <!-- Pallino Lino (Grigio) -->
+              <button @click="boxFragrance = 'lino'" class="w-3.5 h-3.5 rounded-full border border-white/80 transition-all duration-500 focus:outline-none" :class="boxFragrance === 'lino' ? 'opacity-0 scale-0 w-0 h-0 border-transparent pointer-events-none' : 'bg-linenSlate border-linenSlate hover:scale-110'"></button>
+            </div>
+
+            <span class="text-[11px] font-extrabold text-white/95 uppercase tracking-wider">Biodegradabile</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= CALL TO ACTION (SUBITO SOTTO L'HERO CON TIMER 10 SECONDI) ================= -->
+  <section id="iscriviti-anchor" class="py-16 bg-payBlue text-white text-center relative overflow-hidden" x-data="{ email: '', submitted: false, loading: false }">
+    <div class="absolute inset-0 bg-white/5 opacity-40 mix-blend-overlay"></div>
+    <div class="max-w-4xl mx-auto px-6 relative z-10 space-y-6">
+      
+      <h3 class="text-emerald-400 text-xs font-bold uppercase tracking-widest">Pre-lancio Esclusivo</h3>
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Pronto a dare una svolta al tuo bucato?</h2>
+      <p class="text-slate-300 text-sm md:text-base max-w-xl mx-auto">
+        Iscriviti alla nostra newsletter per ricevere gli aggiornamenti sul lancio della produzione e assicurati un <span class="text-emerald-400 font-bold">codice sconto del 10%</span> sul tuo primo acquisto.
+      </p>
+
+      <!-- Form Iscrizione Allargato e Centrato -->
+      <div class="max-w-xl mx-auto">
+        <!-- Il submit fa durare lo stato 'iscritti' per 10 secondi esatti e poi resetta -->
+        <form @submit.prevent="loading = true; setTimeout(() =&gt; { loading = false; submitted = true; email = ''; setTimeout(() =&gt; { submitted = false; }, 10000) }, 1000)" class="flex flex-col sm:flex-row gap-3">
+          <input type="email" x-model="email" placeholder="Inserisci qui la tua email" required="" class="flex-grow px-5 py-4 text-slate-900 text-base rounded-2xl border-0 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-paleBlue transition-all">
+          <button type="submit" class="px-8 py-4 text-base font-extrabold text-white rounded-2xl transition-all duration-300 transform active:scale-95 flex items-center justify-center min-w-[180px] hover:shadow-lg" :class="submitted ? 'bg-leafGreen hover:bg-leafGreen' : 'bg-paleBlue hover:bg-blue-600'">
+            <span x-show="!loading &amp;&amp; !submitted">Voglio lo sconto</span>
+            <span x-show="loading" class="flex items-center">Attendi...</span>
+            <span x-show="submitted" class="flex items-center font-bold">Iscritto</span>
+          </button>
+        </form>
+        
+        <!-- Messaggio di ringraziamento visibile solo per 10 secondi -->
+        <p x-show="submitted" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="text-sm text-emerald-400 mt-4 font-bold">
+          Grazie! Il codice sconto del 10% verrà inviato alla email indicata al momento del lancio.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= COME FUNZIONA ================= -->
+  <section id="come-funziona" class="py-20 bg-white border-y border-slate-100">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-xl mx-auto mb-16">
+        <h2 class="text-xs font-bold text-paleBlue uppercase tracking-widest mb-3">Semplicità d'uso</h2>
+        <h3 class="text-3xl font-extrabold text-payBlue">Come funziona? Tre passaggi.</h3>
+        <p class="text-slate-500 mt-2">Dimentica dosatori di plastica appiccicosi e flaconi pesanti da sollevare.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <!-- Step 1 (Foglietto piegato) -->
+        <div class="flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-2xl bg-blue-50 text-paleBlue flex items-center justify-center mb-6 border border-blue-100 transition-transform duration-300 hover:scale-110 hover:shadow-md">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6M9 16h6M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z"></path>
+            </svg>
+          </div>
+          <h4 class="text-lg font-bold text-payBlue mb-2">1. Prendi un foglietto</h4>
+          <p class="text-sm text-slate-500 leading-relaxed max-w-xs">
+            Estrai un singolo foglietto salvaspazio dalla confezione. Pulito, leggero e perfettamente predosato.
+          </p>
+        </div>
+
+        <!-- Step 2 (Cestello Lavatrice con foglietto) -->
+        <div class="flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-2xl bg-blue-50 text-paleBlue flex items-center justify-center mb-6 border border-blue-100 transition-transform duration-300 hover:scale-110 hover:shadow-md">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9"></circle>
+              <circle cx="12" cy="12" r="6" stroke-dasharray="3 3"></circle>
+              <path d="M10 10h4v4h-4z"></path>
+            </svg>
+          </div>
+          <h4 class="text-lg font-bold text-payBlue mb-2">2. Mettilo nel cestello</h4>
+          <p class="text-sm text-slate-500 leading-relaxed max-w-xs">
+            Inserisci il foglietto direttamente nel cestello della lavatrice insieme o sotto i tuoi capi.
+          </p>
+        </div>
+
+        <!-- Step 3 (Interfaccia Start Lavaggio) -->
+        <div class="flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 border border-emerald-100 transition-transform duration-300 hover:scale-110 hover:shadow-md">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.7 12l-4.5 3V9l4.5 3z" fill="currentColor"></path>
+            </svg>
+          </div>
+          <h4 class="text-lg font-bold text-payBlue mb-2">3. Avvia il lavaggio</h4>
+          <p class="text-sm text-slate-500 leading-relaxed max-w-xs">
+            Avvia la lavatrice. Il foglio si scioglierà completamente in pochissimi secondi senza lasciare residui.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LE NOSTRE FRAGRANZE & PRODOTTI (CON MASCHERA POPUP) ================= -->
+  <section id="fragranze" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="text-center max-w-xl mx-auto mb-16">
+        <h2 class="text-xs font-bold text-paleBlue uppercase tracking-widest mb-3 font-bold">Le Nostre Fragranze</h2>
+        <h3 class="text-3xl font-extrabold text-payBlue">Scopri i nostri prodotti</h3>
+        <p class="text-slate-500 mt-2">Clicca su un prodotto per svelare l'esclusiva scheda olfattiva e le caratteristiche della fragranza.</p>
+      </div>
+
+      <!-- Griglia Prodotti Interattivi -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Prodotto 1: Brezza Oceanica -->
+        <div class="group cursor-pointer" @click="
+               modalOpen = true; 
+               modalTitle = 'Brezza Oceanica'; 
+               modalDesc = 'Il profumo fresco e rigenerante dell\'aria pulita di mare. Lascia sui capi una sensazione persistente di fresco bucato steso ad asciugare al sole.'; 
+               modalNotes = '✨ Note marine, ozonate, brezza marina e cotone pulito'; 
+               modalColor = 'bg-[#A0C4DF]';
+             ">
+          <div class="aspect-square w-full rounded-3xl bg-slate-100 overflow-hidden relative border border-slate-200 shadow-sm transition-all duration-300 hover:shadow-lg">
+            
+            <!-- Badge Più Amato fisso in alto a destra -->
+            <div class="absolute top-4 right-4 bg-payBlue text-white text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full z-10 shadow-sm">
+              Il più amato
+            </div>
+
+            <!-- Immagine Placeholder (Sostituisci in futuro) -->
+            <img src="https://via.placeholder.com/600x600/112F4E/FFFFFF?text=newway+Brezza+Oceanica" alt="Brezza Oceanica" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-white/90 backdrop-blur-md text-payBlue px-4 py-3 rounded-2xl">
+              <span class="text-sm font-bold">Brezza Oceanica</span>
+              <span class="text-xs text-paleBlue font-bold group-hover:underline">Scopri →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prodotto 2: Bergamotto -->
+        <div class="group cursor-pointer" @click="
+               modalOpen = true; 
+               modalTitle = 'Bergamotto'; 
+               modalDesc = 'Un\'essenza agrumata, frizzante e prettamente mediterranea. Perfetta per chi cerca una sferzata di pura energia naturale ed freschezza vibrante sul proprio bucato.'; 
+               modalNotes = '✨ Note di scorza di agrumi di Sicilia, foglie di tè verde e bergamotto calabrese'; 
+               modalColor = 'bg-amber-500/20 text-bergamotGold';
+             ">
+          <div class="aspect-square w-full rounded-3xl bg-slate-100 overflow-hidden relative border border-slate-200 shadow-sm transition-all duration-300 hover:shadow-lg">
+            
+            <!-- Immagine Placeholder (Sostituisci in futuro) -->
+            <img src="https://via.placeholder.com/600x600/D97706/FFFFFF?text=newway+Bergamotto" alt="Bergamotto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-white/90 backdrop-blur-md text-payBlue px-4 py-3 rounded-2xl">
+              <span class="text-sm font-bold">Bergamotto</span>
+              <span class="text-xs text-paleBlue font-bold group-hover:underline">Scopri →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prodotto 3: Fresco Lino -->
+        <div class="group cursor-pointer" @click="
+               modalOpen = true; 
+               modalTitle = 'Fresco Lino'; 
+               modalDesc = 'Il profumo pulito, confortevole e intramontabile del lino steso all\'aria aperta. Una fragranza classica, rassicurante, morbida ed estremamente piacevole.'; 
+               modalNotes = '✨ Note calde di cotone, bucato pulito, lino e delicati fiori bianchi'; 
+               modalColor = 'bg-slate-300';
+             ">
+          <div class="aspect-square w-full rounded-3xl bg-slate-100 overflow-hidden relative border border-slate-200 shadow-sm transition-all duration-300 hover:shadow-lg">
+            
+            <!-- Immagine Placeholder (Sostituisci in futuro) -->
+            <img src="https://via.placeholder.com/600x600/64748B/FFFFFF?text=newway+Fresco+Lino" alt="Fresco Lino" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-white/90 backdrop-blur-md text-payBlue px-4 py-3 rounded-2xl">
+              <span class="text-sm font-bold">Fresco Lino</span>
+              <span class="text-xs text-paleBlue font-bold group-hover:underline">Scopri →</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================= MASCHERA MODALE POPUP (Alpine.js con X Verdina al Passaggio) ================= -->
+    <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-payBlue/60 backdrop-blur-md" style="display: none;" @click.away="modalOpen = false">
+         
+      <!-- Animazione di crescita della scheda interna -->
+      <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="transition ease-in duration-200 transform" x-transition:leave-start="opacity-100 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-95 translate-y-4" class="bg-white rounded-3xl max-w-md w-full p-8 border border-slate-200 relative shadow-2xl space-y-6" @click.stop="">
+        
+        <!-- Pulsante Chiudi (X di base blu scuro, diventa verdina al passaggio del mouse) -->
+        <button @click="modalOpen = false" class="absolute top-4 right-4 text-payBlue hover:text-leafGreen transition-colors duration-300 text-xl font-bold focus:outline-none">
+          ✕
+        </button>
+
+        <!-- Cerchio Colorato della Fragranza -->
+        <div class="w-24 h-24 rounded-full mx-auto flex items-center justify-center shadow-inner" :class="modalColor">
+          <svg class="w-10 h-10 text-white/90" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18"></path></svg>
+        </div>
+
+        <!-- Contenuto Informativo -->
+        <div class="text-center space-y-3 pb-4">
+          <h4 class="text-2xl font-extrabold text-payBlue" x-text="modalTitle"></h4>
+          <p class="text-sm text-slate-600 leading-relaxed" x-text="modalDesc"></p>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 text-center">
+          <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Composizione Olfattiva</p>
+          <p class="text-xs font-bold text-slate-700" x-text="modalNotes"></p>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= RECENSIONI (CAROUSEL CON TRANSIZIONE SMOOTH) ================= -->
+  <section id="recensioni" class="py-20 bg-slate-50 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 relative">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <h2 class="text-xs font-bold text-paleBlue uppercase tracking-widest mb-3">La prova sul campo</h2>
+        <h3 class="text-3xl font-extrabold text-payBlue">Cosa dice chi lo ha già provato?</h3>
+        <p class="text-slate-500 mt-2">Dati reali estratti dai nostri primi test d'efficacia con utenti veri.</p>
+      </div>
+
+      <!-- CAROUSEL TRACK -->
+      <div class="relative w-full">
+        
+        <!-- Mobile (Mostra solo 1 recensione alla volta) -->
+        <div class="block md:hidden">
+          <div class="p-8 rounded-3xl bg-white border border-slate-200/60 flex flex-col justify-between h-64 shadow-sm transition-all duration-300" :class="carouselTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'">
+            <div>
+              <div class="text-amber-400 text-sm mb-3" x-text="'★'.repeat(reviews[currentIndex].stars) + '☆'.repeat(5 - reviews[currentIndex].stars)"></div>
+              <p class="text-sm text-slate-600 leading-relaxed italic" x-text="'“' + reviews[currentIndex].text + '”'"></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+              <span class="text-xs font-bold text-slate-700" x-text="reviews[currentIndex].name"></span>
+              <span class="text-[10px] font-semibold text-slate-400 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-full" x-text="'Fragranza: ' + reviews[currentIndex].tag"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop (Mostra 3 recensioni affiancate a rotazione infinita "a catena" con transizione fluida) -->
+        <div class="hidden md:grid grid-cols-3 gap-8">
+          
+          <!-- Card Sinistra (currentIndex) -->
+          <div class="p-8 rounded-3xl bg-white border border-slate-200/60 flex flex-col justify-between h-64 shadow-sm transition-all duration-500 ease-in-out transform" :class="carouselTransitioning ? 'opacity-0 scale-95 translate-y-1' : 'opacity-100 scale-100 translate-y-0'">
+            <div>
+              <div class="text-amber-400 text-sm mb-3" x-text="'★'.repeat(reviews[currentIndex].stars) + '☆'.repeat(5 - reviews[currentIndex].stars)"></div>
+              <p class="text-sm text-slate-600 leading-relaxed italic" x-text="'“' + reviews[currentIndex].text + '”'"></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+              <span class="text-xs font-bold text-slate-700" x-text="reviews[currentIndex].name"></span>
+              <span class="text-[10px] font-semibold text-slate-400 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-full" x-text="'Fragranza: ' + reviews[currentIndex].tag"></span>
+            </div>
+          </div>
+
+          <!-- Card Centrale (currentIndex + 1) -->
+          <div class="p-8 rounded-3xl bg-white border border-slate-200/60 flex flex-col justify-between h-64 shadow-sm transition-all duration-500 ease-in-out transform" :class="carouselTransitioning ? 'opacity-0 scale-95 translate-y-1' : 'opacity-100 scale-100 translate-y-0'">
+            <div>
+              <div class="text-amber-400 text-sm mb-3" x-text="'★'.repeat(reviews[(currentIndex + 1) % 5].stars) + '☆'.repeat(5 - reviews[(currentIndex + 1) % 5].stars)"></div>
+              <p class="text-sm text-slate-600 leading-relaxed italic" x-text="'“' + reviews[(currentIndex + 1) % 5].text + '”'"></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+              <span class="text-xs font-bold text-slate-700" x-text="reviews[(currentIndex + 1) % 5].name"></span>
+              <span class="text-[10px] font-semibold text-slate-400 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-full" x-text="'Fragranza: ' + reviews[(currentIndex + 1) % 5].tag"></span>
+            </div>
+          </div>
+
+          <!-- Card Destra (currentIndex + 2) -->
+          <div class="p-8 rounded-3xl bg-white border border-slate-200/60 flex flex-col justify-between h-64 shadow-sm transition-all duration-500 ease-in-out transform" :class="carouselTransitioning ? 'opacity-0 scale-95 translate-y-1' : 'opacity-100 scale-100 translate-y-0'">
+            <div>
+              <div class="text-amber-400 text-sm mb-3" x-text="'★'.repeat(reviews[(currentIndex + 2) % 5].stars) + '☆'.repeat(5 - reviews[(currentIndex + 2) % 5].stars)"></div>
+              <p class="text-sm text-slate-600 leading-relaxed italic" x-text="'“' + reviews[(currentIndex + 2) % 5].text + '”'"></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+              <span class="text-xs font-bold text-slate-700" x-text="reviews[(currentIndex + 2) % 5].name"></span>
+              <span class="text-[10px] font-semibold text-slate-400 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-full" x-text="'Fragranza: ' + reviews[(currentIndex + 2) % 5].tag"></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Frecce di Navigazione Carousel (Scorrimento continuo a catena con effetto smooth) -->
+      <div class="flex justify-center space-x-4 mt-8">
+        <button @click="slideCarousel('prev')" class="w-10 h-10 rounded-full border border-slate-200 bg-white text-payBlue flex items-center justify-center hover:bg-slate-50 hover:scale-105 hover:shadow-md active:scale-95 transition-all shadow-sm focus:outline-none">
+          ←
+        </button>
+        <button @click="slideCarousel('next')" class="w-10 h-10 rounded-full border border-slate-200 bg-white text-payBlue flex items-center justify-center hover:bg-slate-50 hover:scale-105 hover:shadow-md active:scale-95 transition-all shadow-sm focus:outline-none">
+          →
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FAQ SECTION ================= -->
+  <section id="faq" class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-xs font-bold text-paleBlue uppercase tracking-widest mb-3">Dubbi?</h2>
+        <h3 class="text-3xl font-extrabold text-payBlue">Domande frequenti</h3>
+      </div>
+
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <div class="bg-slate-50 rounded-2xl border border-slate-200/60 overflow-hidden transition-all duration-300">
+          <button @click="openFaq = openFaq === 1 ? null : 1" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-payBlue hover:text-paleBlue transition-colors focus:outline-none">
+            <span>Perché fa meno schiuma rispetto ai detersivi tradizionali?</span>
+            <span class="text-xl transform transition-transform duration-300" :class="openFaq === 1 ? 'rotate-180' : ''">▼</span>
+          </button>
+          
+          <!-- Animazione di discesa FAQ -->
+          <div x-show="openFaq === 1" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-200/30 pt-3">
+            La schiuma non equivale al potere pulente! Molti detersivi aggiungono agenti schiumogeni artificiali solo per impatto visivo. I nostri foglietti usano formule mirate a bassa schiuma: questo riduce il bisogno di risciacqui infiniti, permettendoti di risparmiare molta acqua ed elettricità.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="bg-slate-50 rounded-2xl border border-slate-200/60 overflow-hidden transition-all duration-300">
+          <button @click="openFaq = openFaq === 2 ? null : 2" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-payBlue hover:text-paleBlue transition-colors focus:outline-none">
+            <span>Come si comportano sulle macchie ostinate?</span>
+            <span class="text-xl transform transition-transform duration-300" :class="openFaq === 2 ? 'rotate-180' : ''">▼</span>
+          </button>
+          
+          <div x-show="openFaq === 2" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-200/30 pt-3">
+            I foglietti newway sono perfetti per lo sporco generico e i lavaggi quotidiani anche a freddo (30°C). Per macchie molto difficili e vecchie (come sangue, sugo o trucco), consigliamo di inumidire un piccolo pezzo di foglietto direttamente sulla macchia prima di metterlo in lavatrice.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="bg-slate-50 rounded-2xl border border-slate-200/60 overflow-hidden transition-all duration-300">
+          <button @click="openFaq = openFaq === 3 ? null : 3" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-payBlue hover:text-paleBlue transition-colors focus:outline-none">
+            <span>Il foglio si scioglie completamente anche a 30 gradi?</span>
+            <span class="text-xl transform transition-transform duration-300" :class="openFaq === 3 ? 'rotate-180' : ''">▼</span>
+          </button>
+          
+          <div x-show="openFaq === 3" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-200/30 pt-3">
+            Assolutamente sì. La nostra formula è studiata per dissolversi completamente in acqua a qualsiasi temperatura (anche a 20° e 30° gradi). Non lascia nessun tipo di alone o residuo fibroso sui vestiti.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-payBlue text-white/85 py-12 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <span class="text-2xl font-extrabold tracking-tight text-white mb-4 block">
+          new<span class="text-paleBlue">way</span>
+        </span>
+        <p class="text-xs text-white/60 leading-relaxed">
+          Il brand che sta ridisegnando l'idea di pulito. Sostenibile, leggero, efficace.
+        </p>
+      </div>
+      <div class="flex flex-col space-y-2 text-xs">
+        <h5 class="font-bold text-white uppercase tracking-wider mb-2">Legal &amp; Supporto</h5>
+        <a href="privacy.html" class="hover:text-white transition-colors">Termini e Condizioni</a>
+        <a href="privacy.html" class="hover:text-white transition-colors">Informativa sulla Privacy</a>
+      </div>
+      <div class="text-xs text-white/60 flex flex-col justify-between">
+        <p>© 2026 Ken Ray Communications Sdn Bhd / newway. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+
+</body></html>
