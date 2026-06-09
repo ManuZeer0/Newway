@@ -1,0 +1,557 @@
+<html lang="it" class="scroll-smooth"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>newway | Il bucato, senza il peso della plastica</title>
+  
+  <!-- Font Lato -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&amp;display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Configurazione Colori Centralizzata -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            payBlue: '#112F4E',       /* Blu Scuro Primario */
+            paleBlue: '#3B82F6',      /* Blu Vibrante */
+            leafGreen: '#84CC16',     /* Verde Eco / Successo */
+            bergamotGold: '#D97706',  /* Arancio Bergamotto */
+            linenSlate: '#64748B',    /* Grigio Fresco Lino */
+            neutralSlate: '#F8FAFC'   /* Sfondo Grigio Chiaro */
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Alpine.js per l'interattività -->
+  <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    body { font-family: 'Lato', sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-neutralSlate text-slate-900 antialiased selection:bg-paleBlue selection:text-white" x-data="{ 
+        openFaq: null, 
+        boxFragrance: 'brezza',
+        modalOpen: false,
+        modalTitle: '',
+        modalDesc: '',
+        modalNotes: '',
+        modalColor: '',
+        currentIndex: 0,
+        carouselTransitioning: false,
+        
+        /* Funzione per l'animazione smooth del carousel */
+        slideCarousel(direction) {
+          this.carouselTransitioning = true;
+          setTimeout(() =&gt; {
+            if (direction === 'next') {
+              this.currentIndex = (this.currentIndex + 1) % 5;
+            } else {
+              this.currentIndex = (this.currentIndex - 1 + 5) % 5;
+            }
+            this.carouselTransitioning = false;
+          }, 200);
+        },
+
+        reviews: [
+          { name: 'Elena M.', stars: 5, tag: 'Brezza Oceanica', text: 'È una bellissima proposta, finalmente niente sprechi e flaconi giganti che inquinano. I capi sono usciti morbidissimi.' },
+          { name: 'Marco T.', stars: 5, tag: 'Brezza Oceanica', text: 'Ero scettico sulla rimozione delle macchie e sulla schiuma, ma mi sono dovuto ricredere. I bianchi sono usciti luminosissimi.' },
+          { name: 'Sara P.', stars: 4, tag: 'Senza Profumo', text: 'Ideale per me che ho la pelle sensibile. I vestiti non restano rigidi anche senza ammorbidente e l\'odore è super delicato.' },
+          { name: 'Chiara L.', stars: 5, tag: 'Fresco Lino', text: 'La comodità di non dover portare pesi dal supermercato è imbattibile. Ottima l\'efficacia anche a soli 30 gradi.' },
+          { name: 'Davide K.', stars: 5, tag: 'Bergamotto', text: 'Bella proposta, ecologica e di design. Il profumo di bergamotto è persistente ma senza dare fastidio. Consigliato!' }
+        ]
+      }">
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-neutralSlate/80 border-b border-slate-200 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <span class="text-2xl font-extrabold tracking-tight text-payBlue">
+        new<span class="text-paleBlue">way</span>
+      </span>
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+        <a href="#come-funziona" class="hover:text-payBlue transition-colors duration-200">Come funziona</a>
+        <a href="#fragranze" class="hover:text-payBlue transition-colors duration-200">Le Nostre Fragranze</a>
+        <a href="#recensioni" class="hover:text-payBlue transition-colors duration-200">Feedback</a>
+        <a href="#faq" class="hover:text-payBlue transition-colors duration-200">FAQ</a>
+      </nav>
+      <a href="#iscriviti-anchor" class="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold tracking-wide text-white bg-payBlue rounded-full hover:bg-paleBlue hover:shadow-md active:scale-95 transition-all duration-300">
+        Ottieni 10% Sconto
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative pt-16 pb-16 md:py-24 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+      
+      <!-- Testi Hero (Sinistra) -->
+      <div class="md:col-span-7 flex flex-col justify-center space-y-6">
+        
+        <h1 class="text-4xl md:text-6xl font-extrabold text-payBlue leading-tight tracking-tight">
+          Il bucato, <br class="hidden md:inline">
+          <span class="text-paleBlue relative font-black">senza il peso</span> della plastica.
+        </h1>
+        
+        <p class="text-lg text-slate-600 max-w-xl leading-relaxed">
+          Foglietti predosati ultra-concentrati. Zero sprechi di spazio, zero plastica monouso, massima morbidezza per i tuoi capi. Il modo intelligente di fare la lavatrice.
+        </p>
+
+        <!-- Griglia di Badge di Valore Grandi (Con i tuoi bellissimi SVG!) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6 border-t border-slate-200">
+          
+          <!-- Zero Plastica -->
+          <div class="flex flex-col items-center md:items-start text-center md:text-left group">
+            <div class="w-16 h-16 mb-2 shrink-0 transition-transform duration-300 group-hover:scale-105">
+              <!-- Tuo SVG Plastic Free -->
+              <svg width="100%" height="100%" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#3B82F6" fill-rule="evenodd" d="M 235 32 L 219 34 L 189 41 L 165 50 L 145 60 L 126 72 L 107 87 L 82 113 L 60 145 L 50 165 L 41 189 L 34 219 L 32 235 L 32 276 L 34 292 L 41 322 L 50 346 L 60 366 L 72 385 L 87 404 L 113 429 L 145 451 L 165 461 L 189 470 L 219 477 L 235 479 L 276 479 L 292 477 L 322 470 L 346 461 L 366 451 L 385 439 L 404 424 L 429 398 L 451 366 L 461 346 L 470 322 L 477 292 L 479 276 L 479 235 L 477 219 L 470 189 L 462 167 L 451 145 L 439 126 L 424 107 L 398 82 L 366 60 L 346 50 L 322 41 L 298 35 L 276 32 Z M 207 223 L 300 316 L 309 342 L 308 394 L 202 393 L 202 342 L 213 311 L 213 306 L 202 275 L 202 236 Z M 221 181 L 291 182 L 309 236 L 309 275 L 304 288 L 215 199 Z M 234 128 L 276 127 L 277 159 L 235 160 Z M 103 122 L 105 121 L 190 206 L 181 231 L 181 280 L 191 308 L 181 337 L 181 408 L 185 414 L 324 415 L 328 412 L 330 408 L 331 347 L 390 407 L 362 428 L 340 440 L 310 451 L 288 456 L 271 458 L 240 458 L 224 456 L 201 451 L 183 445 L 149 428 L 122 408 L 98 383 L 77 352 L 62 317 L 56 293 L 53 270 L 54 231 L 57 213 L 63 191 L 71 171 L 81 152 Z M 122 103 L 152 81 L 171 71 L 191 63 L 213 57 L 231 54 L 271 53 L 288 55 L 317 62 L 352 77 L 383 98 L 408 122 L 420 137 L 434 159 L 449 194 L 457 231 L 458 270 L 454 298 L 443 333 L 428 362 L 407 390 L 321 305 L 330 280 L 330 231 L 308 165 L 303 160 L 298 159 L 297 111 L 290 106 L 221 106 L 217 108 L 213 113 L 213 159 L 205 162 L 199 179 L 197 181 L 121 105 Z"></path>
+              </svg>
+            </div>
+            <span class="text-sm font-extrabold text-payBlue leading-tight whitespace-nowrap">Zero Plastica</span>
+          </div>
+          
+          <!-- Salvaspazio (Centrato, ridimensionato al 78% e senza ritagli!) -->
+          <div class="flex flex-col items-center md:items-start text-center md:text-left group">
+            <div class="w-16 h-16 mb-2 shrink-0 transition-transform duration-300 group-hover:scale-105">
+              <svg width="100%" height="100%" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <!-- Cornice circolare della stessa identica proporzione degli altri -->
+                <circle cx="256" cy="256" r="240" stroke="#112F4E" stroke-width="16" fill="none"></circle>
+                <!-- Gruppo di riscalamento per contenere l'immagine senza ritagliarla -->
+                <g transform="translate(256, 256) scale(0.78) translate(-256, -256)">
+                  <path fill="#112F4E" fill-rule="evenodd" d="M 473 200 L 456 200 L 450 203 L 443 210 L 440 216 L 439 305 L 433 306 L 424 311 L 384 351 L 356 373 L 345 390 L 343 398 L 343 466 L 347 470 L 355 470 L 359 464 L 359 400 L 364 389 L 398 361 L 437 322 L 444 322 L 448 327 L 448 332 L 413 367 L 412 375 L 415 379 L 425 379 L 459 345 L 463 338 L 464 323 L 461 316 L 455 310 L 455 223 L 460 216 L 466 215 L 470 217 L 473 221 L 473 351 L 408 434 L 407 466 L 409 469 L 414 471 L 419 470 L 422 467 L 423 442 L 484 364 L 488 357 L 489 217 L 485 209 L 479 203 Z M 38 200 L 32 203 L 26 209 L 22 217 L 23 357 L 27 364 L 88 442 L 89 467 L 92 470 L 97 471 L 102 469 L 104 466 L 103 434 L 38 351 L 38 221 L 41 217 L 45 215 L 51 216 L 56 223 L 56 310 L 50 316 L 47 323 L 48 338 L 52 345 L 86 379 L 96 379 L 99 375 L 98 367 L 63 332 L 63 327 L 67 322 L 74 322 L 113 361 L 147 389 L 152 400 L 152 464 L 156 470 L 164 470 L 168 466 L 168 398 L 168 390 L 157 375 L 127 351 L 87 311 L 78 306 L 72 305 L 71 216 L 68 210 L 61 203 L 55 200 Z M 250 40 L 214 45 L 185 55 L 154 73 L 128 96 L 109 121 L 99 139 L 92 156 L 84 189 L 83 226 L 89 260 L 99 287 L 115 314 L 127 329 L 140 342 L 164 360 L 194 375 L 234 385 L 265 386 L 298 381 L 331 369 L 359 352 L 386 327 L 407 297 L 414 283 L 422 261 L 428 228 L 428 198 L 422 166 L 411 137 L 396 112 L 373 86 L 350 68 L 319 52 L 287 43 Z M 101 228 L 106 229 L 112 235 L 116 263 L 123 273 L 129 276 L 159 277 L 167 283 L 168 286 L 158 299 L 155 310 L 160 321 L 181 338 L 185 346 L 183 352 L 155 333 L 135 313 L 122 295 L 111 274 L 106 261 L 100 235 Z M 249 136 L 256 132 L 270 115 L 278 113 L 280 118 L 286 125 L 302 134 L 304 137 L 299 144 L 289 147 L 263 138 Z M 196 70 L 181 80 L 173 88 L 167 101 L 165 115 L 162 121 L 156 127 L 148 131 L 138 133 L 130 132 L 124 129 L 136 112 L 155 93 L 176 78 L 194 69 Z M 285 59 L 315 68 L 335 78 L 347 86 L 375 112 L 388 130 L 386 131 L 382 127 L 374 123 L 363 123 L 357 126 L 349 136 L 350 148 L 377 175 L 381 182 L 382 189 L 378 203 L 360 234 L 355 246 L 349 283 L 348 305 L 346 310 L 341 315 L 332 300 L 306 285 L 292 274 L 290 268 L 300 249 L 302 237 L 298 226 L 291 219 L 286 217 L 279 217 L 257 224 L 233 224 L 224 220 L 217 213 L 212 200 L 212 187 L 219 180 L 237 169 L 242 164 L 246 156 L 250 153 L 260 154 L 281 162 L 292 163 L 306 159 L 317 148 L 320 141 L 319 128 L 311 120 L 299 114 L 294 109 L 292 104 L 284 98 L 273 97 L 260 102 L 242 121 L 235 119 L 231 114 L 231 110 L 235 106 L 256 102 L 264 98 L 272 90 L 276 81 L 277 66 L 281 61 Z M 259 56 L 263 58 L 261 63 L 261 73 L 258 81 L 247 88 L 232 90 L 223 94 L 218 99 L 215 106 L 215 118 L 221 129 L 230 135 L 243 138 L 233 146 L 231 151 L 224 158 L 206 169 L 200 175 L 196 183 L 196 202 L 198 211 L 203 222 L 211 231 L 221 237 L 240 241 L 265 239 L 282 233 L 286 240 L 278 254 L 274 266 L 274 273 L 277 281 L 291 295 L 319 311 L 323 315 L 327 325 L 330 328 L 337 331 L 344 331 L 354 326 L 361 317 L 363 312 L 365 284 L 371 249 L 392 212 L 396 201 L 398 189 L 397 179 L 390 165 L 365 141 L 367 139 L 372 140 L 393 161 L 406 169 L 412 199 L 412 227 L 405 261 L 391 292 L 377 312 L 354 335 L 332 350 L 316 358 L 299 364 L 264 370 L 230 368 L 201 360 L 199 358 L 201 351 L 201 343 L 197 332 L 186 320 L 172 309 L 181 297 L 183 292 L 184 285 L 181 274 L 176 268 L 165 262 L 156 260 L 135 259 L 130 250 L 128 231 L 124 223 L 118 217 L 112 214 L 99 211 L 99 200 L 103 176 L 114 146 L 118 144 L 128 148 L 141 149 L 152 147 L 163 142 L 176 130 L 180 122 L 182 107 L 187 97 L 203 86 L 211 78 L 215 62 L 231 58 Z"></path>
+                </g>
+              </svg>
+            </div>
+            <span class="text-sm font-extrabold text-payBlue leading-tight whitespace-nowrap">Salvaspazio</span>
+          </div>
+
+          <!-- Certificato Vegan (In un'unica riga!) -->
+          <div class="flex flex-col items-center md:items-start text-center md:text-left group">
+            <div class="w-16 h-16 mb-2 shrink-0 transition-transform duration-300 group-hover:scale-105">
+              <svg width="100%" height="100%" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#84CC16" fill-rule="evenodd" d="M 244 42 L 204 48 L 171 59 L 151 69 L 132 81 L 113 96 L 96 113 L 73 144 L 55 181 L 49 200 L 44 224 L 42 244 L 42 267 L 47 303 L 59 340 L 69 360 L 81 379 L 96 398 L 112 414 L 144 438 L 181 456 L 218 466 L 244 469 L 267 469 L 303 464 L 340 452 L 360 442 L 379 430 L 399 414 L 414 399 L 438 367 L 456 330 L 462 311 L 467 287 L 469 267 L 469 244 L 464 208 L 452 171 L 442 151 L 430 132 L 415 113 L 398 96 L 367 73 L 330 55 L 311 49 L 287 44 L 267 42 Z M 246 59 L 285 61 L 308 66 L 323 71 L 358 88 L 386 109 L 402 125 L 417 144 L 436 178 L 447 211 L 452 246 L 450 284 L 446 304 L 440 323 L 423 358 L 402 386 L 386 402 L 367 417 L 333 436 L 300 447 L 265 452 L 227 450 L 207 446 L 188 440 L 153 423 L 125 402 L 109 386 L 94 367 L 75 333 L 64 300 L 59 265 L 61 226 L 71 188 L 88 153 L 109 125 L 125 109 L 144 94 L 178 75 L 211 64 Z M 343 131 L 334 132 L 328 142 L 318 152 L 309 158 L 287 169 L 262 179 L 229 196 L 212 208 L 193 228 L 183 246 L 177 268 L 176 291 L 176 291 L 179 315 L 165 333 L 156 352 L 151 370 L 152 376 L 156 380 L 163 380 L 167 377 L 173 356 L 181 340 L 190 328 L 206 337 L 223 343 L 239 346 L 262 346 L 277 343 L 299 334 L 316 323 L 334 305 L 341 295 L 353 268 L 358 245 L 360 222 L 359 194 L 355 166 L 347 135 Z M 335 160 L 339 174 L 342 198 L 341 242 L 333 272 L 324 289 L 309 306 L 292 318 L 282 323 L 261 329 L 233 328 L 217 323 L 205 317 L 204 315 L 215 306 L 246 287 L 274 267 L 289 251 L 301 229 L 300 222 L 297 219 L 288 219 L 284 223 L 276 239 L 261 255 L 237 272 L 203 293 L 196 299 L 194 298 L 194 271 L 199 253 L 208 237 L 220 224 L 241 209 L 318 173 Z"></path>
+              </svg>
+            </div>
+            <span class="text-sm font-extrabold text-payBlue leading-tight whitespace-nowrap">Vegan Friendly</span>
+          </div>
+
+          <!-- Cruelty Free -->
+          <div class="flex flex-col items-center md:items-start text-center md:text-left group">
+            <div class="w-16 h-16 mb-2 shrink-0 transition-transform duration-300 group-hover:scale-105">
+              <svg width="100%" height="100%" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#D97706" fill-rule="evenodd" d="M 218 432 L 214 474 L 226 475 L 227 460 L 230 459 L 235 463 L 237 474 L 239 477 L 250 478 L 248 463 L 244 457 L 248 455 L 252 449 L 252 442 L 250 438 L 244 434 L 236 432 Z M 229 442 L 237 442 L 240 445 L 239 449 L 236 451 L 229 451 Z M 292 431 L 262 434 L 267 477 L 298 474 L 297 464 L 279 466 L 277 460 L 281 458 L 294 457 L 293 447 L 277 449 L 275 446 L 277 442 L 293 441 L 294 440 Z M 209 428 L 181 419 L 167 459 L 178 463 L 184 448 L 200 454 L 203 444 L 188 439 L 188 435 L 191 432 L 207 438 L 210 430 Z M 330 418 L 301 429 L 316 469 L 346 459 L 342 449 L 325 456 L 323 454 L 322 450 L 324 448 L 338 443 L 335 434 L 319 440 L 317 437 L 318 433 L 334 427 Z M 220 131 L 211 140 L 205 149 L 199 164 L 197 185 L 201 201 L 184 206 L 169 216 L 160 227 L 152 247 L 152 268 L 158 280 L 168 286 L 185 288 L 185 297 L 193 323 L 193 364 L 196 373 L 202 379 L 207 381 L 218 381 L 225 377 L 230 369 L 232 348 L 251 353 L 248 358 L 249 370 L 255 378 L 261 381 L 303 381 L 314 376 L 324 364 L 335 366 L 346 363 L 355 355 L 359 346 L 359 333 L 355 324 L 350 319 L 340 314 L 326 315 L 323 305 L 315 291 L 302 277 L 287 266 L 263 255 L 234 250 L 237 241 L 237 221 L 233 212 L 252 203 L 267 189 L 277 171 L 277 163 L 272 157 L 268 156 L 257 156 L 243 159 L 236 135 L 231 130 Z M 329 326 L 340 327 L 346 333 L 347 344 L 338 353 L 329 353 L 324 350 L 320 344 L 320 335 Z M 197 286 L 213 278 L 228 263 L 243 263 L 254 265 L 268 270 L 281 277 L 292 285 L 303 296 L 313 313 L 314 322 L 310 327 L 307 339 L 309 350 L 313 356 L 312 360 L 305 367 L 300 369 L 267 370 L 260 365 L 260 361 L 266 356 L 290 356 L 293 353 L 293 348 L 291 345 L 266 344 L 237 337 L 227 333 L 222 333 L 219 336 L 218 366 L 215 369 L 208 368 L 205 363 L 205 322 L 205 322 L 205 363 L 205 363 L 205 322 L 202 308 L 197 295 Z M 219 215 L 225 223 L 225 239 L 223 246 L 217 257 L 207 267 L 196 273 L 188 275 L 174 275 L 169 273 L 164 266 L 164 249 L 167 240 L 174 229 L 186 219 L 198 214 L 211 213 Z M 191 224 L 183 229 L 182 239 L 187 245 L 195 246 L 202 241 L 203 231 L 199 226 Z M 191 234 L 193 233 L 194 236 L 192 237 Z M 264 169 L 258 180 L 243 194 L 229 200 L 215 200 L 222 188 L 237 175 L 252 169 Z M 226 144 L 230 156 L 230 165 L 220 172 L 210 184 L 209 177 L 213 161 L 220 149 Z M 417 128 L 410 129 L 408 135 L 425 161 L 434 179 L 446 217 L 449 237 L 448 282 L 438 322 L 424 352 L 400 385 L 385 400 L 368 414 L 368 420 L 372 423 L 379 421 L 397 406 L 414 388 L 430 366 L 443 342 L 450 325 L 456 305 L 460 284 L 461 236 L 454 199 L 446 176 L 447 157 L 426 139 Z M 94 128 L 85 139 L 74 157 L 65 176 L 57 199 L 50 236 L 51 284 L 55 305 L 61 325 L 68 342 L 81 366 L 97 388 L 114 406 L 132 421 L 139 423 L 143 420 L 143 414 L 126 400 L 111 385 L 96 366 L 86 350 L 73 322 L 63 282 L 62 237 L 65 217 L 77 179 L 86 161 L 103 135 L 101 129 Z M 131 73 L 125 75 L 118 80 L 112 87 L 109 95 L 109 105 L 111 110 L 118 118 L 124 121 L 139 120 L 151 112 L 156 105 L 148 99 L 142 106 L 132 110 L 127 108 L 122 103 L 121 93 L 127 86 L 134 82 Z M 382 72 L 377 101 L 365 115 L 375 123 L 387 108 L 414 100 L 405 91 L 402 91 L 389 98 L 388 95 L 393 81 Z M 175 52 L 161 54 L 145 63 L 163 102 L 174 97 L 168 83 L 171 80 L 174 80 L 185 91 L 197 86 L 185 73 L 180 71 L 183 66 L 183 61 L 180 55 Z M 168 62 L 171 64 L 172 68 L 164 74 L 160 66 Z M 337 49 L 333 58 L 342 62 L 343 65 L 329 93 L 340 98 L 354 70 L 356 69 L 366 74 L 370 65 Z M 303 39 L 291 80 L 317 88 L 321 88 L 323 79 L 306 73 L 314 42 Z M 234 34 L 222 36 L 226 58 L 226 67 L 224 70 L 220 72 L 215 71 L 211 66 L 206 39 L 194 42 L 199 69 L 202 75 L 207 80 L 214 82 L 224 81 L 231 78 L 236 73 L 238 69 L 238 55 Z M 254 33 L 251 76 L 283 78 L 283 69 L 265 68 L 264 61 L 282 61 L 282 51 L 266 51 L 265 45 L 284 45 L 284 35 Z"></path>
+              </svg>
+            </div>
+            <span class="text-sm font-extrabold text-payBlue leading-tight whitespace-nowrap">Cruelty Free</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Box Prodotto con Pallini Cliccabili "Immersivi" (Destra) -->
+      <div class="md:col-span-5 flex flex-col items-center">
+        <div class="w-72 h-[340px] md:w-80 md:h-[360px] rounded-3xl p-8 flex flex-col justify-between text-white shadow-2xl relative overflow-hidden transition-all duration-500 ease-in-out" :class="{
+               'bg-gradient-to-tr from-payBlue to-paleBlue': boxFragrance === 'brezza',
+               'bg-gradient-to-tr from-payBlue to-bergamotGold': boxFragrance === 'bergamotto',
+               'bg-gradient-to-tr from-payBlue to-linenSlate': boxFragrance === 'lino'
+             }">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-10 -mt-10 blur-xl"></div>
+          
+          <div class="flex justify-between items-start z-10">
+            <span class="text-xl font-extrabold tracking-tight">newway</span>
+            <span class="text-[10px] uppercase font-bold tracking-widest border border-white/30 px-2 py-0.5 rounded-full bg-white/10">Laundry Sheet</span>
+          </div>
+
+          <div class="space-y-3 z-10">
+            <div class="w-16 h-1 bg-white/40 rounded-full"></div>
+            <!-- Testo dinamico -->
+            <h3 class="text-2xl font-bold tracking-tight" x-text="boxFragrance === 'brezza' ? 'Brezza Oceanica' : boxFragrance === 'bergamotto' ? 'Bergamotto Frizzante' : 'Fresco Lino' "></h3>
+            <p class="text-xs text-white/85 leading-relaxed" x-text="boxFragrance === 'brezza' ? 'La freschezza rigenerante dell\'oceano e del bucato steso al sole direttamente sui tuoi capi.' : boxFragrance === 'bergamotto' ? 'Una carica agrumata, frizzante ed energizzante per chi ama i profumi persistenti ma naturali.' : 'La fragranza classica, rassicurante e pulita del lino appena lavato.' "></p>
+          </div>
+
+          <!-- Cornice Inferiore del Box con Selettori Interni -->
+          <div class="flex items-center justify-between border-t border-white/20 pt-4 z-10">
+            
+            <!-- Pallini Cliccabili "Immersivi" (Scompaiono se attivi) -->
+            <div class="flex space-x-3 items-center h-5">
+              
+              <!-- Pallino Brezza (Blu) -->
+              <button @click="boxFragrance = 'brezza'" class="w-3.5 h-3.5 rounded-full border border-white/80 transition-all duration-500 focus:outline-none" :class="boxFragrance === 'brezza' ? 'opacity-0 scale-0 w-0 h-0 border-transparent pointer-events-none' : 'bg-paleBlue border-paleBlue hover:scale-110'"></button>
+              
+              <!-- Pallino Bergamotto (Arancio) -->
+              <button @click="boxFragrance = 'bergamotto'" class="w-3.5 h-3.5 rounded-full border border-white/80 transition-all duration-500 focus:outline-none" :class="boxFragrance === 'bergamotto' ? 'opacity-0 scale-0 w-0 h-0 border-transparent pointer-events-none' : 'bg-bergamotGold border-bergamotGold hover:scale-110'"></button>
+              
+              <!-- Pallino Lino (Grigio) -->
+              <button @click="boxFragrance = 'lino'" class="w-3.5 h-3.5 rounded-full border border-white/80 transition-all duration-500 focus:outline-none" :class="boxFragrance === 'lino' ? 'opacity-0 scale-0 w-0 h-0 border-transparent pointer-events-none' : 'bg-linenSlate border-linenSlate hover:scale-110'"></button>
+            </div>
+
+            <span class="text-[11px] font-extrabold text-white/95 uppercase tracking-wider">Biodegradabile</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= CALL TO ACTION (SUBITO SOTTO L'HERO CON TIMER 10 SECONDI) ================= -->
+  <section id="iscriviti-anchor" class="py-16 bg-payBlue text-white text-center relative overflow-hidden" x-data="{ email: '', submitted: false, loading: false }">
+    <div class="absolute inset-0 bg-white/5 opacity-40 mix-blend-overlay"></div>
+    <div class="max-w-4xl mx-auto px-6 relative z-10 space-y-6">
+      
+      <h3 class="text-emerald-400 text-xs font-bold uppercase tracking-widest">Pre-lancio Esclusivo</h3>
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Pronto a dare una svolta al tuo bucato?</h2>
+      <p class="text-slate-300 text-sm md:text-base max-w-xl mx-auto">
+        Iscriviti alla nostra newsletter per ricevere gli aggiornamenti sul lancio della produzione e assicurati un <span class="text-emerald-400 font-bold">codice sconto del 10%</span> sul tuo primo acquisto.
+      </p>
+
+      <!-- Form Iscrizione Allargato e Centrato -->
+      <div class="max-w-xl mx-auto">
+        <!-- Il submit fa durare lo stato 'iscritti' per 10 secondi esatti e poi resetta -->
+        <form @submit.prevent="loading = true; setTimeout(() =&gt; { loading = false; submitted = true; email = ''; setTimeout(() =&gt; { submitted = false; }, 10000) }, 1000)" class="flex flex-col sm:flex-row gap-3">
+          <input type="email" x-model="email" placeholder="Inserisci qui la tua email" required="" class="flex-grow px-5 py-4 text-slate-900 text-base rounded-2xl border-0 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-paleBlue transition-all">
+          <button type="submit" class="px-8 py-4 text-base font-extrabold text-white rounded-2xl transition-all duration-300 transform active:scale-95 flex items-center justify-center min-w-[180px] hover:shadow-lg" :class="submitted ? 'bg-leafGreen hover:bg-leafGreen' : 'bg-paleBlue hover:bg-blue-600'">
+            <span x-show="!loading &amp;&amp; !submitted">Voglio lo sconto</span>
+            <span x-show="loading" class="flex items-center">Attendi...</span>
+            <span x-show="submitted" class="flex items-center font-bold">Iscritto</span>
+          </button>
+        </form>
+        
+        <!-- Messaggio di ringraziamento visibile solo per 10 secondi -->
+        <p x-show="submitted" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="text-sm text-emerald-400 mt-4 font-bold">
+          Grazie! Il codice sconto del 10% verrà inviato alla email indicata al momento del lancio.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= COME FUNZIONA ================= -->
+  <section id="come-funziona" class="py-20 bg-white border-y border-slate-100">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-xl mx-auto mb-16">
+        <h2 class="text-xs font-bold text-paleBlue uppercase tracking-widest mb-3">Semplicità d'uso</h2>
+        <h3 class="text-3xl font-extrabold text-payBlue">Come funziona? Tre passaggi.</h3>
+        <p class="text-slate-500 mt-2">Dimentica dosatori di plastica appiccicosi e flaconi pesanti da sollevare.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <!-- Step 1 (Foglietto piegato) -->
+        <div class="flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-2xl bg-blue-50 text-paleBlue flex items-center justify-center mb-6 border border-blue-100 transition-transform duration-300 hover:scale-110 hover:shadow-md">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6M9 16h6M7 4h10a2 2 0 012 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V6a2 2 0 012-2z"></path>
+            </svg>
+          </div>
+          <h4 class="text-lg font-bold text-payBlue mb-2">1. Prendi un foglietto</h4>
+          <p class="text-sm text-slate-500 leading-relaxed max-w-xs">
+            Estrai un singolo foglietto salvaspazio dalla confezione. Pulito, leggero e perfettamente predosato.
+          </p>
+        </div>
+
+        <!-- Step 2 (Cestello Lavatrice con foglietto) -->
+        <div class="flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-2xl bg-blue-50 text-paleBlue flex items-center justify-center mb-6 border border-blue-100 transition-transform duration-300 hover:scale-110 hover:shadow-md">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9"></circle>
+              <circle cx="12" cy="12" r="6" stroke-dasharray="3 3"></circle>
+              <path d="M10 10h4v4h-4z"></path>
+            </svg>
+          </div>
+          <h4 class="text-lg font-bold text-payBlue mb-2">2. Mettilo nel cestello</h4>
+          <p class="text-sm text-slate-500 leading-relaxed max-w-xs">
+            Inserisci il foglietto direttamente nel cestello della lavatrice insieme o sotto i tuoi capi.
+          </p>
+        </div>
+
+        <!-- Step 3 (Interfaccia Start Lavaggio) -->
+        <div class="flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-6 border border-emerald-100 transition-transform duration-300 hover:scale-110 hover:shadow-md">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.7 12l-4.5 3V9l4.5 3z" fill="currentColor"></path>
+            </svg>
+          </div>
+          <h4 class="text-lg font-bold text-payBlue mb-2">3. Avvia il lavaggio</h4>
+          <p class="text-sm text-slate-500 leading-relaxed max-w-xs">
+            Avvia la lavatrice. Il foglio si scioglierà completamente in pochissimi secondi senza lasciare residui.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LE NOSTRE FRAGRANZE & PRODOTTI (CON MASCHERA POPUP) ================= -->
+  <section id="fragranze" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <div class="text-center max-w-xl mx-auto mb-16">
+        <h2 class="text-xs font-bold text-paleBlue uppercase tracking-widest mb-3 font-bold">Le Nostre Fragranze</h2>
+        <h3 class="text-3xl font-extrabold text-payBlue">Scopri i nostri prodotti</h3>
+        <p class="text-slate-500 mt-2">Clicca su un prodotto per svelare l'esclusiva scheda olfattiva e le caratteristiche della fragranza.</p>
+      </div>
+
+      <!-- Griglia Prodotti Interattivi -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Prodotto 1: Brezza Oceanica -->
+        <div class="group cursor-pointer" @click="
+               modalOpen = true; 
+               modalTitle = 'Brezza Oceanica'; 
+               modalDesc = 'Il profumo fresco e rigenerante dell\'aria pulita di mare. Lascia sui capi una sensazione persistente di fresco bucato steso ad asciugare al sole.'; 
+               modalNotes = '✨ Note marine, ozonate, brezza marina e cotone pulito'; 
+               modalColor = 'bg-[#A0C4DF]';
+             ">
+          <div class="aspect-square w-full rounded-3xl bg-slate-100 overflow-hidden relative border border-slate-200 shadow-sm transition-all duration-300 hover:shadow-lg">
+            
+            <!-- Badge Più Amato fisso in alto a destra -->
+            <div class="absolute top-4 right-4 bg-payBlue text-white text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full z-10 shadow-sm">
+              Il più amato
+            </div>
+
+            <!-- Immagine Placeholder (Sostituisci in futuro) -->
+            <img src="https://via.placeholder.com/600x600/112F4E/FFFFFF?text=newway+Brezza+Oceanica" alt="Brezza Oceanica" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-white/90 backdrop-blur-md text-payBlue px-4 py-3 rounded-2xl">
+              <span class="text-sm font-bold">Brezza Oceanica</span>
+              <span class="text-xs text-paleBlue font-bold group-hover:underline">Scopri →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prodotto 2: Bergamotto -->
+        <div class="group cursor-pointer" @click="
+               modalOpen = true; 
+               modalTitle = 'Bergamotto'; 
+               modalDesc = 'Un\'essenza agrumata, frizzante e prettamente mediterranea. Perfetta per chi cerca una sferzata di pura energia naturale ed freschezza vibrante sul proprio bucato.'; 
+               modalNotes = '✨ Note di scorza di agrumi di Sicilia, foglie di tè verde e bergamotto calabrese'; 
+               modalColor = 'bg-amber-500/20 text-bergamotGold';
+             ">
+          <div class="aspect-square w-full rounded-3xl bg-slate-100 overflow-hidden relative border border-slate-200 shadow-sm transition-all duration-300 hover:shadow-lg">
+            
+            <!-- Immagine Placeholder (Sostituisci in futuro) -->
+            <img src="https://via.placeholder.com/600x600/D97706/FFFFFF?text=newway+Bergamotto" alt="Bergamotto" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-white/90 backdrop-blur-md text-payBlue px-4 py-3 rounded-2xl">
+              <span class="text-sm font-bold">Bergamotto</span>
+              <span class="text-xs text-paleBlue font-bold group-hover:underline">Scopri →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prodotto 3: Fresco Lino -->
+        <div class="group cursor-pointer" @click="
+               modalOpen = true; 
+               modalTitle = 'Fresco Lino'; 
+               modalDesc = 'Il profumo pulito, confortevole e intramontabile del lino steso all\'aria aperta. Una fragranza classica, rassicurante, morbida ed estremamente piacevole.'; 
+               modalNotes = '✨ Note calde di cotone, bucato pulito, lino e delicati fiori bianchi'; 
+               modalColor = 'bg-slate-300';
+             ">
+          <div class="aspect-square w-full rounded-3xl bg-slate-100 overflow-hidden relative border border-slate-200 shadow-sm transition-all duration-300 hover:shadow-lg">
+            
+            <!-- Immagine Placeholder (Sostituisci in futuro) -->
+            <img src="https://via.placeholder.com/600x600/64748B/FFFFFF?text=newway+Fresco+Lino" alt="Fresco Lino" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-white/90 backdrop-blur-md text-payBlue px-4 py-3 rounded-2xl">
+              <span class="text-sm font-bold">Fresco Lino</span>
+              <span class="text-xs text-paleBlue font-bold group-hover:underline">Scopri →</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================= MASCHERA MODALE POPUP (Alpine.js con X Verdina al Passaggio) ================= -->
+    <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-payBlue/60 backdrop-blur-md" style="display: none;" @click.away="modalOpen = false">
+         
+      <!-- Animazione di crescita della scheda interna -->
+      <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="transition ease-in duration-200 transform" x-transition:leave-start="opacity-100 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-95 translate-y-4" class="bg-white rounded-3xl max-w-md w-full p-8 border border-slate-200 relative shadow-2xl space-y-6" @click.stop="">
+        
+        <!-- Pulsante Chiudi (X di base blu scuro, diventa verdina al passaggio del mouse) -->
+        <button @click="modalOpen = false" class="absolute top-4 right-4 text-payBlue hover:text-leafGreen transition-colors duration-300 text-xl font-bold focus:outline-none">
+          ✕
+        </button>
+
+        <!-- Cerchio Colorato della Fragranza -->
+        <div class="w-24 h-24 rounded-full mx-auto flex items-center justify-center shadow-inner" :class="modalColor">
+          <svg class="w-10 h-10 text-white/90" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18"></path></svg>
+        </div>
+
+        <!-- Contenuto Informativo -->
+        <div class="text-center space-y-3 pb-4">
+          <h4 class="text-2xl font-extrabold text-payBlue" x-text="modalTitle"></h4>
+          <p class="text-sm text-slate-600 leading-relaxed" x-text="modalDesc"></p>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 text-center">
+          <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Composizione Olfattiva</p>
+          <p class="text-xs font-bold text-slate-700" x-text="modalNotes"></p>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= RECENSIONI (CAROUSEL CON TRANSIZIONE SMOOTH) ================= -->
+  <section id="recensioni" class="py-20 bg-slate-50 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 relative">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <h2 class="text-xs font-bold text-paleBlue uppercase tracking-widest mb-3">La prova sul campo</h2>
+        <h3 class="text-3xl font-extrabold text-payBlue">Cosa dice chi lo ha già provato?</h3>
+        <p class="text-slate-500 mt-2">Dati reali estratti dai nostri primi test d'efficacia con utenti veri.</p>
+      </div>
+
+      <!-- CAROUSEL TRACK -->
+      <div class="relative w-full">
+        
+        <!-- Mobile (Mostra solo 1 recensione alla volta) -->
+        <div class="block md:hidden">
+          <div class="p-8 rounded-3xl bg-white border border-slate-200/60 flex flex-col justify-between h-64 shadow-sm transition-all duration-300" :class="carouselTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'">
+            <div>
+              <div class="text-amber-400 text-sm mb-3" x-text="'★'.repeat(reviews[currentIndex].stars) + '☆'.repeat(5 - reviews[currentIndex].stars)"></div>
+              <p class="text-sm text-slate-600 leading-relaxed italic" x-text="'“' + reviews[currentIndex].text + '”'"></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+              <span class="text-xs font-bold text-slate-700" x-text="reviews[currentIndex].name"></span>
+              <span class="text-[10px] font-semibold text-slate-400 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-full" x-text="'Fragranza: ' + reviews[currentIndex].tag"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop (Mostra 3 recensioni affiancate a rotazione infinita "a catena" con transizione fluida) -->
+        <div class="hidden md:grid grid-cols-3 gap-8">
+          
+          <!-- Card Sinistra (currentIndex) -->
+          <div class="p-8 rounded-3xl bg-white border border-slate-200/60 flex flex-col justify-between h-64 shadow-sm transition-all duration-500 ease-in-out transform" :class="carouselTransitioning ? 'opacity-0 scale-95 translate-y-1' : 'opacity-100 scale-100 translate-y-0'">
+            <div>
+              <div class="text-amber-400 text-sm mb-3" x-text="'★'.repeat(reviews[currentIndex].stars) + '☆'.repeat(5 - reviews[currentIndex].stars)"></div>
+              <p class="text-sm text-slate-600 leading-relaxed italic" x-text="'“' + reviews[currentIndex].text + '”'"></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+              <span class="text-xs font-bold text-slate-700" x-text="reviews[currentIndex].name"></span>
+              <span class="text-[10px] font-semibold text-slate-400 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-full" x-text="'Fragranza: ' + reviews[currentIndex].tag"></span>
+            </div>
+          </div>
+
+          <!-- Card Centrale (currentIndex + 1) -->
+          <div class="p-8 rounded-3xl bg-white border border-slate-200/60 flex flex-col justify-between h-64 shadow-sm transition-all duration-500 ease-in-out transform" :class="carouselTransitioning ? 'opacity-0 scale-95 translate-y-1' : 'opacity-100 scale-100 translate-y-0'">
+            <div>
+              <div class="text-amber-400 text-sm mb-3" x-text="'★'.repeat(reviews[(currentIndex + 1) % 5].stars) + '☆'.repeat(5 - reviews[(currentIndex + 1) % 5].stars)"></div>
+              <p class="text-sm text-slate-600 leading-relaxed italic" x-text="'“' + reviews[(currentIndex + 1) % 5].text + '”'"></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+              <span class="text-xs font-bold text-slate-700" x-text="reviews[(currentIndex + 1) % 5].name"></span>
+              <span class="text-[10px] font-semibold text-slate-400 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-full" x-text="'Fragranza: ' + reviews[(currentIndex + 1) % 5].tag"></span>
+            </div>
+          </div>
+
+          <!-- Card Destra (currentIndex + 2) -->
+          <div class="p-8 rounded-3xl bg-white border border-slate-200/60 flex flex-col justify-between h-64 shadow-sm transition-all duration-500 ease-in-out transform" :class="carouselTransitioning ? 'opacity-0 scale-95 translate-y-1' : 'opacity-100 scale-100 translate-y-0'">
+            <div>
+              <div class="text-amber-400 text-sm mb-3" x-text="'★'.repeat(reviews[(currentIndex + 2) % 5].stars) + '☆'.repeat(5 - reviews[(currentIndex + 2) % 5].stars)"></div>
+              <p class="text-sm text-slate-600 leading-relaxed italic" x-text="'“' + reviews[(currentIndex + 2) % 5].text + '”'"></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-slate-100 pt-4">
+              <span class="text-xs font-bold text-slate-700" x-text="reviews[(currentIndex + 2) % 5].name"></span>
+              <span class="text-[10px] font-semibold text-slate-400 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-full" x-text="'Fragranza: ' + reviews[(currentIndex + 2) % 5].tag"></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Frecce di Navigazione Carousel (Scorrimento continuo a catena con effetto smooth) -->
+      <div class="flex justify-center space-x-4 mt-8">
+        <button @click="slideCarousel('prev')" class="w-10 h-10 rounded-full border border-slate-200 bg-white text-payBlue flex items-center justify-center hover:bg-slate-50 hover:scale-105 hover:shadow-md active:scale-95 transition-all shadow-sm focus:outline-none">
+          ←
+        </button>
+        <button @click="slideCarousel('next')" class="w-10 h-10 rounded-full border border-slate-200 bg-white text-payBlue flex items-center justify-center hover:bg-slate-50 hover:scale-105 hover:shadow-md active:scale-95 transition-all shadow-sm focus:outline-none">
+          →
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FAQ SECTION ================= -->
+  <section id="faq" class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-xs font-bold text-paleBlue uppercase tracking-widest mb-3">Dubbi?</h2>
+        <h3 class="text-3xl font-extrabold text-payBlue">Domande frequenti</h3>
+      </div>
+
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <div class="bg-slate-50 rounded-2xl border border-slate-200/60 overflow-hidden transition-all duration-300">
+          <button @click="openFaq = openFaq === 1 ? null : 1" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-payBlue hover:text-paleBlue transition-colors focus:outline-none">
+            <span>Perché fa meno schiuma rispetto ai detersivi tradizionali?</span>
+            <span class="text-xl transform transition-transform duration-300" :class="openFaq === 1 ? 'rotate-180' : ''">▼</span>
+          </button>
+          
+          <!-- Animazione di discesa FAQ -->
+          <div x-show="openFaq === 1" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-200/30 pt-3">
+            La schiuma non equivale al potere pulente! Molti detersivi aggiungono agenti schiumogeni artificiali solo per impatto visivo. I nostri foglietti usano formule mirate a bassa schiuma: questo riduce il bisogno di risciacqui infiniti, permettendoti di risparmiare molta acqua ed elettricità.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="bg-slate-50 rounded-2xl border border-slate-200/60 overflow-hidden transition-all duration-300">
+          <button @click="openFaq = openFaq === 2 ? null : 2" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-payBlue hover:text-paleBlue transition-colors focus:outline-none">
+            <span>Come si comportano sulle macchie ostinate?</span>
+            <span class="text-xl transform transition-transform duration-300" :class="openFaq === 2 ? 'rotate-180' : ''">▼</span>
+          </button>
+          
+          <div x-show="openFaq === 2" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-200/30 pt-3">
+            I foglietti newway sono perfetti per lo sporco generico e i lavaggi quotidiani anche a freddo (30°C). Per macchie molto difficili e vecchie (come sangue, sugo o trucco), consigliamo di inumidire un piccolo pezzo di foglietto direttamente sulla macchia prima di metterlo in lavatrice.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="bg-slate-50 rounded-2xl border border-slate-200/60 overflow-hidden transition-all duration-300">
+          <button @click="openFaq = openFaq === 3 ? null : 3" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-payBlue hover:text-paleBlue transition-colors focus:outline-none">
+            <span>Il foglio si scioglie completamente anche a 30 gradi?</span>
+            <span class="text-xl transform transition-transform duration-300" :class="openFaq === 3 ? 'rotate-180' : ''">▼</span>
+          </button>
+          
+          <div x-show="openFaq === 3" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" class="px-6 pb-5 text-sm text-slate-600 leading-relaxed border-t border-slate-200/30 pt-3">
+            Assolutamente sì. La nostra formula è studiata per dissolversi completamente in acqua a qualsiasi temperatura (anche a 20° e 30° gradi). Non lascia nessun tipo di alone o residuo fibroso sui vestiti.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-payBlue text-white/85 py-12 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <span class="text-2xl font-extrabold tracking-tight text-white mb-4 block">
+          new<span class="text-paleBlue">way</span>
+        </span>
+        <p class="text-xs text-white/60 leading-relaxed">
+          Il brand che sta ridisegnando l'idea di pulito. Sostenibile, leggero, efficace.
+        </p>
+      </div>
+      <div class="flex flex-col space-y-2 text-xs">
+        <h5 class="font-bold text-white uppercase tracking-wider mb-2">Legal &amp; Supporto</h5>
+        <a href="privacy.html" class="hover:text-white transition-colors">Termini e Condizioni</a>
+        <a href="privacy.html" class="hover:text-white transition-colors">Informativa sulla Privacy</a>
+      </div>
+      <div class="text-xs text-white/60 flex flex-col justify-between">
+        <p>© 2026 Ken Ray Communications Sdn Bhd / newway. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+
+</body></html>
