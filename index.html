@@ -1,0 +1,478 @@
+<html lang="it" class="scroll-smooth"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neway | L'Aromaterapia del Bucato Ecologico</title>
+  
+  <!-- Font Playfair Display per i titoli e Lato per i testi -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Nuova Configurazione Colori "Botanica e Premium" -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Lato', 'sans-serif'],
+          },
+          colors: {
+            botanicalGreen: '#2C3E2B',   /* Verde Oliva Profondo / Erboristeria */
+            sageGreen: '#8DA382',        /* Verde Salvia Delicato */
+            warmTerracotta: '#C88265',   /* Terracotta Caldo / Accento */
+            linenCrema: '#FAF8F5',       /* Sfondo Crema Naturale */
+            charcoalClay: '#3D3A36',     /* Grigio Caldo Scuro per testi */
+            softGold: '#E5C158'          /* Oro Delicato per valutazioni */
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Alpine.js per l'interattività -->
+  <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    body { font-family: 'Lato', sans-serif; }
+    h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-linenCrema text-charcoalClay antialiased selection:bg-sageGreen selection:text-white" x-data="{ 
+        openFaq: null, 
+        boxFragrance: 'brezza',
+        modalOpen: false,
+        modalTitle: '',
+        modalDesc: '',
+        modalNotes: '',
+        modalColor: '',
+        currentIndex: 0,
+        carouselTransitioning: false,
+        
+        slideCarousel(direction) {
+          this.carouselTransitioning = true;
+          setTimeout(() =&gt; {
+            if (direction === 'next') {
+              this.currentIndex = (this.currentIndex + 1) % 5;
+            } else {
+              this.currentIndex = (this.currentIndex - 1 + 5) % 5;
+            }
+            this.carouselTransitioning = false;
+          }, 200);
+        },
+
+        reviews: [
+          { name: 'Elena M. (Erborista)', stars: 5, tag: 'Lavanda Officinale', text: 'Un profumo che sa di veri fiori, non di chimica. I capi escono incredibilmente morbidi anche senza ammorbidente.' },
+          { name: 'Dott.ssa Beatrice R.', stars: 5, tag: 'Senza Profumo', text: 'Consigliatissimo per chi soffre di dermatite da contatto. La formula con estratto d\'avena è una carezza per la pelle.' },
+          { name: 'Sara P.', stars: 5, tag: 'Bergamotto e Salvia', text: 'Il bucato diventa un vero rituale di benessere. La casa si riempie di una fragranza agrumata e terapeutica pazzesca.' },
+          { name: 'Chiara L.', stars: 5, tag: 'Fiori di Cotone', text: 'Estremamente concentrati e leggeri. Ho eliminato tutti i pesanti flaconi di plastica che ingombravano il mio bagno.' },
+          { name: 'Davide K.', stars: 5, tag: 'Bergamotto e Salvia', text: 'Una qualità di lavaggio eccezionale a basse temperature. Si scioglie all\'istante senza lasciare aloni sui capi scuri.' }
+        ]
+      }">
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-linenCrema/90 border-b border-stone-200 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <span class="text-3xl font-bold tracking-tight text-botanicalGreen font-serif">
+        Neway<span class="text-warmTerracotta">.</span>
+      </span>
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-semibold uppercase tracking-wider text-stone-600">
+        <a href="#filosofia" class="hover:text-botanicalGreen transition-colors duration-200">La Filosofia</a>
+        <a href="#come-funziona" class="hover:text-botanicalGreen transition-colors duration-200">Il Rituale</a>
+        <a href="#fragranze" class="hover:text-botanicalGreen transition-colors duration-200">Le Essenze</a>
+        <a href="#recensioni" class="hover:text-botanicalGreen transition-colors duration-200">Esperienze</a>
+        <a href="#faq" class="hover:text-botanicalGreen transition-colors duration-200">Domande</a>
+      </nav>
+      <a href="#iscriviti-anchor" class="inline-flex items-center justify-center px-6 py-3 text-xs font-bold uppercase tracking-wider text-white bg-botanicalGreen rounded-full hover:bg-warmTerracotta hover:shadow-md active:scale-95 transition-all duration-300">
+        Riserva il 10% di Sconto
+      </a>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative pt-12 pb-16 md:py-24 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+      
+      <!-- Testi Hero (Sinistra) -->
+      <div class="md:col-span-7 flex flex-col justify-center space-y-6">
+        <span class="text-xs font-bold uppercase tracking-widest text-warmTerracotta">L'evoluzione botanica del bucato</span>
+        
+        <h1 class="text-4xl md:text-6xl font-normal text-botanicalGreen leading-tight tracking-tight">
+          Il tuo bucato, <br class="hidden md:inline">
+          un <span class="italic font-light">rituale di benessere</span> per la pelle e la terra.
+        </h1>
+        
+        <p class="text-lg text-stone-600 max-w-xl leading-relaxed font-light">
+          Foglietti di detersivo ultra-concentrati arricchiti con estratti botanici e oli essenziali puri. Pulizia profonda, morbidezza naturale e zero plastica monouso. Una nuova via per prenderti cura di ciò che indossi.
+        </p>
+
+        <!-- Griglia di Badge di Valore Botanici -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6 border-t border-stone-200/80">
+          <div class="flex flex-col items-center md:items-start text-center md:text-left">
+            <span class="text-2xl mb-1">🌿</span>
+            <span class="text-sm font-bold text-botanicalGreen">Estratti di Avena</span>
+            <span class="text-xs text-stone-500">Lenitivo e protettivo</span>
+          </div>
+          <div class="flex flex-col items-center md:items-start text-center md:text-left">
+            <span class="text-2xl mb-1">🌸</span>
+            <span class="text-sm font-bold text-botanicalGreen">Oli Essenziali</span>
+            <span class="text-xs text-stone-500">Aromaterapia pura</span>
+          </div>
+          <div class="flex flex-col items-center md:items-start text-center md:text-left">
+            <span class="text-2xl mb-1">🛡️</span>
+            <span class="text-sm font-bold text-botanicalGreen">Nickel Tested</span>
+            <span class="text-xs text-stone-500">Ipoallergenico dermatologico</span>
+          </div>
+          <div class="flex flex-col items-center md:items-start text-center md:text-left">
+            <span class="text-2xl mb-1">📦</span>
+            <span class="text-sm font-bold text-botanicalGreen">100% Plastic Free</span>
+            <span class="text-xs text-stone-500">Cartone e cellulosa</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Box Prodotto con Pallini Cliccabili "Immersivi" (Destra) -->
+      <div class="md:col-span-5 flex flex-col items-center">
+        <div class="w-72 h-[380px] md:w-80 md:h-[400px] rounded-3xl p-8 flex flex-col justify-between text-stone-800 shadow-xl border border-stone-200/40 relative overflow-hidden transition-all duration-500 ease-in-out" :class="{
+               'bg-[#E9EDE6]': boxFragrance === 'brezza',
+               'bg-[#F5ECE2]': boxFragrance === 'bergamotto',
+               'bg-[#F0EDE9]': boxFragrance === 'lino'
+             }">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full -mr-10 -mt-10 blur-xl"></div>
+          
+          <div class="flex justify-between items-start z-10">
+            <span class="text-2xl font-bold tracking-tight text-botanicalGreen font-serif">Neway</span>
+            <span class="text-[9px] uppercase font-bold tracking-widest border border-botanicalGreen/25 px-3 py-1 rounded-full bg-white/45 text-botanicalGreen">Bespoke Clean</span>
+          </div>
+
+          <div class="space-y-3 z-10">
+            <div class="w-12 h-[2px] bg-botanicalGreen/30 rounded-full"></div>
+            <!-- Testo dinamico -->
+            <h3 class="text-3xl font-normal text-botanicalGreen font-serif" x-text="boxFragrance === 'brezza' ? 'Lavanda Officinale' : boxFragrance === 'bergamotto' ? 'Bergamotto e Salvia' : 'Fiori di Cotone' "></h3>
+            <p class="text-sm text-stone-600 leading-relaxed font-light" x-text="boxFragrance === 'brezza' ? 'Le note calmanti e rilassanti dell\'olio essenziale di lavanda per donare freschezza ancestrale e pace alle tue notti.' : boxFragrance === 'bergamotto' ? 'Una sferzata agrumata ed energizzante di bergamotto calabrese mitigata dalla salvia sclarea.' : 'La fragranza soffice, pulita e rassicurante che ricorda la purezza dei fiori bianchi appena sbocciati.' "></p>
+          </div>
+
+          <!-- Cornice Inferiore del Box con Selettori Interni -->
+          <div class="flex items-center justify-between border-t border-botanicalGreen/10 pt-4 z-10">
+            <div class="flex space-x-3 items-center h-5">
+              <!-- Lavanda (Salvia) -->
+              <button @click="boxFragrance = 'brezza'" class="w-4 h-4 rounded-full border border-botanicalGreen/30 transition-all duration-500 focus:outline-none bg-[#D1D9C9] hover:scale-110" :class="boxFragrance === 'brezza' ? 'ring-2 ring-botanicalGreen ring-offset-2' : ''"></button>
+              <!-- Bergamotto (Caldo) -->
+              <button @click="boxFragrance = 'bergamotto'" class="w-4 h-4 rounded-full border border-botanicalGreen/30 transition-all duration-500 focus:outline-none bg-[#EAD4C3] hover:scale-110" :class="boxFragrance === 'bergamotto' ? 'ring-2 ring-botanicalGreen ring-offset-2' : ''"></button>
+              <!-- Cotone (Grigio caldissimo) -->
+              <button @click="boxFragrance = 'lino'" class="w-4 h-4 rounded-full border border-botanicalGreen/30 transition-all duration-500 focus:outline-none bg-[#DFDDD9] hover:scale-110" :class="boxFragrance === 'lino' ? 'ring-2 ring-botanicalGreen ring-offset-2' : ''"></button>
+            </div>
+            <span class="text-[10px] font-bold text-botanicalGreen uppercase tracking-wider">Cruelty-free &amp; Vegan</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= CALL TO ACTION (PRE-LANCIO CON TIMER / SCONTO) ================= -->
+  <section id="iscriviti-anchor" class="py-16 bg-botanicalGreen text-white text-center relative overflow-hidden" x-data="{ email: '', submitted: false, loading: false }">
+    <div class="max-w-4xl mx-auto px-6 relative z-10 space-y-6">
+      <h3 class="text-sageGreen text-xs font-bold uppercase tracking-widest font-sans">Accesso prioritario e limitato</h3>
+      <h2 class="text-3xl md:text-5xl font-normal tracking-tight text-linenCrema">Entra nel futuro del pulito gentile</h2>
+      <p class="text-stone-300 text-sm md:text-base max-w-xl mx-auto font-light">
+        Stiamo preparando la prima colata botanica esclusiva nei nostri laboratori. Iscriviti ora per assicurarti uno sconto del <span class="text-warmTerracotta font-bold">10% sul primo lotto</span> e ricevere la guida all'aromaterapia tessile.
+      </p>
+
+      <div class="max-w-xl mx-auto">
+        <form @submit.prevent="loading = true; setTimeout(() =&gt; { loading = false; submitted = true; email = ''; setTimeout(() =&gt; { submitted = false; }, 10000) }, 1000)" class="flex flex-col sm:flex-row gap-3">
+          <input type="email" x-model="email" placeholder="La tua migliore email" required="" class="flex-grow px-5 py-4 text-stone-800 text-base rounded-full border-0 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-sageGreen transition-all bg-linenCrema">
+          <button type="submit" class="px-8 py-4 text-sm font-bold uppercase tracking-wider text-white rounded-full transition-all duration-300 transform active:scale-95 flex items-center justify-center min-w-[180px]" :class="submitted ? 'bg-sageGreen' : 'bg-warmTerracotta hover:bg-[#b77051]'">
+            <span x-show="!loading &amp;&amp; !submitted">Riserva Sconto</span>
+            <span x-show="loading">Attendi...</span>
+            <span x-show="submitted" class="font-bold">Riservato</span>
+          </button>
+        </form>
+        <p x-show="submitted" class="text-sm text-sageGreen mt-4 font-bold">
+          Benvenuto nel club Neway. Il tuo codice sconto unico ti verrà inviato non appena il primo lotto sarà pronto per la spedizione.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COME FUNZIONA ================= -->
+  <section id="come-funziona" class="py-20 bg-white border-y border-stone-100">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-xl mx-auto mb-16">
+        <h2 class="text-xs font-bold text-warmTerracotta uppercase tracking-widest mb-3">Semplice, Consapevole, Puro</h2>
+        <h3 class="text-3xl md:text-4xl font-normal text-botanicalGreen">Il rituale di lavaggio in tre gesti</h3>
+        <p class="text-stone-500 mt-2 font-light">Elimina il superfluo per fare spazio alla qualità formulativa botanica.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-full bg-linenCrema text-botanicalGreen flex items-center justify-center mb-6 border border-stone-200/40 transition-transform duration-300 hover:scale-110">
+            <span class="text-2xl">🌱</span>
+          </div>
+          <h4 class="text-lg font-bold text-botanicalGreen mb-2 font-serif">1. Estrai l'essenza</h4>
+          <p class="text-sm text-stone-500 leading-relaxed max-w-xs font-light">
+            Prendi un singolo foglietto Neway dalla scatola protettiva in cartone. È asciutto, leggero e calibrato senza sprechi.
+          </p>
+        </div>
+
+        <div class="flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-full bg-linenCrema text-botanicalGreen flex items-center justify-center mb-6 border border-stone-200/40 transition-transform duration-300 hover:scale-110">
+            <span class="text-2xl">🧺</span>
+          </div>
+          <h4 class="text-lg font-bold text-botanicalGreen mb-2 font-serif">2. Adagia nel cestello</h4>
+          <p class="text-sm text-stone-500 leading-relaxed max-w-xs font-light">
+            Infilalo direttamente sotto i tessuti. A contatto con l'acqua, gli estratti di avena si attivano per avvolgere le fibre.
+          </p>
+        </div>
+
+        <div class="flex flex-col items-center text-center group">
+          <div class="w-16 h-16 rounded-full bg-linenCrema text-botanicalGreen flex items-center justify-center mb-6 border border-stone-200/40 transition-transform duration-300 hover:scale-110">
+            <span class="text-2xl">🫧</span>
+          </div>
+          <h4 class="text-lg font-bold text-botanicalGreen mb-2 font-serif">3. Goditi il pulito</h4>
+          <p class="text-sm text-stone-500 leading-relaxed max-w-xs font-light">
+            Avvia anche a 20° o 30°C. Il foglietto si dissolve totalmente sprigionando i veri oli essenziali senza lasciare alcun residuo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LE FRAGRANZE ================= -->
+  <section id="fragranze" class="py-20 bg-linenCrema">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-xl mx-auto mb-16">
+        <h2 class="text-xs font-bold text-warmTerracotta uppercase tracking-widest mb-3">La Collezione Olfattiva</h2>
+        <h3 class="text-3xl md:text-4xl font-normal text-botanicalGreen">Esplora gli Orti Botanici Neway</h3>
+        <p class="text-stone-500 mt-2 font-light">Ogni profumazione è creata con fragranze botaniche ipoallergeniche per risvegliare i sensi.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Lavanda -->
+        <div class="group cursor-pointer" @click="
+               modalOpen = true; 
+               modalTitle = 'Lavanda Officinale'; 
+               modalDesc = 'Il profumo eterno e pacifico dei fiori blu dei colli toscani. Ideale per distendere la mente, lavare le lenzuola e conciliare sogni sereni.'; 
+               modalNotes = '✨ Fiori di Lavanda, Foglie di Menta selvatica, Muschio bianco botanico'; 
+               modalColor = 'bg-[#E3E8DB] text-botanicalGreen';
+             ">
+          <div class="aspect-[3/4] w-full rounded-3xl bg-stone-100 overflow-hidden relative border border-stone-200/40 shadow-sm transition-all duration-300 hover:shadow-md">
+            <div class="absolute top-4 right-4 bg-botanicalGreen text-white text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full z-10">
+              Presidio Calmante
+            </div>
+            <!-- Immagine concettuale d'ispirazione vegetale -->
+            <img src="https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Lavanda Officinale" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-white/95 text-botanicalGreen px-4 py-3 rounded-2xl">
+              <span class="text-sm font-bold font-serif">Lavanda Officinale</span>
+              <span class="text-xs font-bold text-warmTerracotta">Rivela Olfatto →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bergamotto -->
+        <div class="group cursor-pointer" @click="
+               modalOpen = true; 
+               modalTitle = 'Bergamotto e Salvia'; 
+               modalDesc = 'L\'energia pura del sole calabrese unita alle foglie balsamiche di salvia officinale. Rinfresca in modo netto e persistente, ideale per l\'attività sportiva e i capi di tutta la famiglia.'; 
+               modalNotes = '✨ Scorza di Bergamotto, Salvia Sclarea, Legno di Cedro antico'; 
+               modalColor = 'bg-[#F2E5D5] text-botanicalGreen';
+             ">
+          <div class="aspect-[3/4] w-full rounded-3xl bg-stone-100 overflow-hidden relative border border-stone-200/40 shadow-sm transition-all duration-300 hover:shadow-md">
+            <img src="https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Bergamotto e Salvia" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-white/95 text-botanicalGreen px-4 py-3 rounded-2xl">
+              <span class="text-sm font-bold font-serif">Bergamotto e Salvia</span>
+              <span class="text-xs font-bold text-warmTerracotta">Rivela Olfatto →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fiori di Cotone -->
+        <div class="group cursor-pointer" @click="
+               modalOpen = true; 
+               modalTitle = 'Fiori di Cotone'; 
+               modalDesc = 'La purezza per eccellenza. Delicata, talcata e morbidissima. Progettata per pelli ultra-sensibili, donne incinte e neonati.'; 
+               modalNotes = '✨ Fiori di Cotone, Mandorla dolce, Estratto di Camomilla rilassante'; 
+               modalColor = 'bg-[#EDEAE6] text-botanicalGreen';
+             ">
+          <div class="aspect-[3/4] w-full rounded-3xl bg-stone-100 overflow-hidden relative border border-stone-200/40 shadow-sm transition-all duration-300 hover:shadow-md">
+            <img src="https://images.unsplash.com/photo-1522012147041-30a115908535?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Fiori di Cotone" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center bg-white/95 text-botanicalGreen px-4 py-3 rounded-2xl">
+              <span class="text-sm font-bold font-serif">Fiori di Cotone</span>
+              <span class="text-xs font-bold text-warmTerracotta">Rivela Olfatto →</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= MODALE POPUP ================= -->
+    <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-botanicalGreen/75 backdrop-blur-sm" style="display: none;" @click.away="modalOpen = false">
+      <div x-show="modalOpen" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0" class="bg-linenCrema rounded-3xl max-w-md w-full p-8 border border-stone-200 relative shadow-2xl space-y-6" @click.stop="">
+        <button @click="modalOpen = false" class="absolute top-4 right-4 text-botanicalGreen hover:text-warmTerracotta transition-colors duration-300 text-xl font-bold">
+          ✕
+        </button>
+        <div class="w-20 h-24 mx-auto flex items-center justify-center rounded-2xl shadow-inner text-3xl" :class="modalColor">
+          🍃
+        </div>
+        <div class="text-center space-y-3 pb-2">
+          <h4 class="text-2xl font-normal text-botanicalGreen font-serif" x-text="modalTitle"></h4>
+          <p class="text-sm text-stone-600 leading-relaxed font-light" x-text="modalDesc"></p>
+        </div>
+        <div class="pt-4 border-t border-stone-200/50 text-center">
+          <p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-1">Composizione Olfattiva</p>
+          <p class="text-xs font-bold text-botanicalGreen italic" x-text="modalNotes"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RECENSIONI (CAROUSEL) ================= -->
+  <section id="recensioni" class="py-20 bg-stone-50 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 relative">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <h2 class="text-xs font-bold text-warmTerracotta uppercase tracking-widest mb-3">Chi l'ha provato</h2>
+        <h3 class="text-3xl md:text-4xl font-normal text-botanicalGreen">Opinioni della nostra community botanica</h3>
+        <p class="text-stone-500 mt-2 font-light">Testimonianze reali raccolte durante i test pre-vendita condotti insieme ad erboristi ed esperti della pelle.</p>
+      </div>
+
+      <!-- CAROUSEL TRACK -->
+      <div class="relative w-full">
+        <!-- Mobile (1 Card) -->
+        <div class="block md:hidden">
+          <div class="p-8 rounded-3xl bg-white border border-stone-200 flex flex-col justify-between h-64 shadow-sm" :class="carouselTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'">
+            <div>
+              <div class="text-softGold text-xs mb-3" x-text="'★'.repeat(reviews[currentIndex].stars)"></div>
+              <p class="text-sm text-stone-600 leading-relaxed italic font-light" x-text="'“' + reviews[currentIndex].text + '”'"></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-stone-100 pt-4">
+              <span class="text-xs font-bold text-botanicalGreen" x-text="reviews[currentIndex].name"></span>
+              <span class="text-[9px] font-bold text-stone-400 bg-[#FAF8F5] border border-stone-200 px-3 py-1 rounded-full uppercase" x-text="reviews[currentIndex].tag"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop (3 Card) -->
+        <div class="hidden md:grid grid-cols-3 gap-8">
+          <div class="p-8 rounded-3xl bg-white border border-stone-200 flex flex-col justify-between h-64 shadow-sm" :class="carouselTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'">
+            <div>
+              <div class="text-softGold text-xs mb-3" x-text="'★'.repeat(reviews[currentIndex].stars)"></div>
+              <p class="text-sm text-stone-600 leading-relaxed italic font-light" x-text="'“' + reviews[currentIndex].text + '”'"></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-stone-100 pt-4">
+              <span class="text-xs font-bold text-botanicalGreen" x-text="reviews[currentIndex].name"></span>
+              <span class="text-[9px] font-bold text-stone-400 bg-[#FAF8F5] border border-stone-200 px-3 py-1 rounded-full uppercase" x-text="reviews[currentIndex].tag"></span>
+            </div>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-white border border-stone-200 flex flex-col justify-between h-64 shadow-sm" :class="carouselTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'">
+            <div>
+              <div class="text-softGold text-xs mb-3" x-text="'★'.repeat(reviews[(currentIndex + 1) % 5].stars)"></div>
+              <p class="text-sm text-stone-600 leading-relaxed italic font-light" x-text="'“' + reviews[(currentIndex + 1) % 5].text + '”'"></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-stone-100 pt-4">
+              <span class="text-xs font-bold text-botanicalGreen" x-text="reviews[(currentIndex + 1) % 5].name"></span>
+              <span class="text-[9px] font-bold text-stone-400 bg-[#FAF8F5] border border-stone-200 px-3 py-1 rounded-full uppercase" x-text="reviews[(currentIndex + 1) % 5].tag"></span>
+            </div>
+          </div>
+
+          <div class="p-8 rounded-3xl bg-white border border-stone-200 flex flex-col justify-between h-64 shadow-sm" :class="carouselTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'">
+            <div>
+              <div class="text-softGold text-xs mb-3" x-text="'★'.repeat(reviews[(currentIndex + 2) % 5].stars)"></div>
+              <p class="text-sm text-stone-600 leading-relaxed italic font-light" x-text="'“' + reviews[(currentIndex + 2) % 5].text + '”'"></p>
+            </div>
+            <div class="flex items-center justify-between border-t border-stone-100 pt-4">
+              <span class="text-xs font-bold text-botanicalGreen" x-text="reviews[(currentIndex + 2) % 5].name"></span>
+              <span class="text-[9px] font-bold text-stone-400 bg-[#FAF8F5] border border-stone-200 px-3 py-1 rounded-full uppercase" x-text="reviews[(currentIndex + 2) % 5].tag"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center space-x-4 mt-8">
+        <button @click="slideCarousel('prev')" class="w-10 h-10 rounded-full border border-stone-200 bg-white text-botanicalGreen flex items-center justify-center hover:bg-stone-50 active:scale-95 transition-all focus:outline-none">
+          ←
+        </button>
+        <button @click="slideCarousel('next')" class="w-10 h-10 rounded-full border border-stone-200 bg-white text-botanicalGreen flex items-center justify-center hover:bg-stone-50 active:scale-95 transition-all focus:outline-none">
+          →
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FAQ SECTION ================= -->
+  <section id="faq" class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-xs font-bold text-warmTerracotta uppercase tracking-widest mb-3">La Trasparenza Prima di Tutto</h2>
+        <h3 class="text-3xl font-normal text-botanicalGreen font-serif">Rispondiamo alle tue domande</h3>
+      </div>
+
+      <div class="space-y-4">
+        <!-- FAQ 1 -->
+        <div class="bg-linenCrema rounded-2xl border border-stone-200/50 overflow-hidden transition-all duration-300">
+          <button @click="openFaq = openFaq === 1 ? null : 1" class="w-full px-6 py-4 text-stone-800 text-left flex items-center justify-between font-bold hover:text-warmTerracotta focus:outline-none">
+            <span>Perché costano leggermente di più dei classici detersivi da scaffale?</span>
+            <span class="text-xl transform transition-transform duration-300" :class="openFaq === 1 ? 'rotate-180 text-warmTerracotta' : ''">▼</span>
+          </button>
+          
+          <div x-show="openFaq === 1" x-transition:enter="transition ease-out duration-300" class="px-6 pb-5 text-sm text-stone-600 leading-relaxed border-t border-stone-200/40 pt-3 font-light">
+            I foglietti Neway non sono semplice acqua saponata asciugata. Sono formulati con un'alta concentrazione di materie prime organiche certificate, arricchite con vero estratto di Avena Sativa per la protezione delle pelli reattive e oli essenziali puri, anziché profumi sintetici industriali derivati dal petrolio. Inoltre, investiamo sul packaging 100% plastic-free in cellulosa vegetale rigenerata compostabile. È un acquisto di valore per il tuo corpo e per la natura.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="bg-linenCrema rounded-2xl border border-stone-200/50 overflow-hidden transition-all duration-300">
+          <button @click="openFaq = openFaq === 2 ? null : 2" class="w-full px-6 py-4 text-stone-800 text-left flex items-center justify-between font-bold hover:text-warmTerracotta focus:outline-none">
+            <span>Come proteggono le pelli delicate o con allergie?</span>
+            <span class="text-xl transform transition-transform duration-300" :class="openFaq === 2 ? 'rotate-180 text-warmTerracotta' : ''">▼</span>
+          </button>
+          
+          <div x-show="openFaq === 2" x-transition:enter="transition ease-out duration-300" class="px-6 pb-5 text-sm text-stone-600 leading-relaxed border-t border-stone-200/40 pt-3 font-light">
+            Tutte le nostre formulazioni sono sottoposte a rigorosi test dermatologici, sono certificate Nickel e Cromo Tested e prive di sostanze aggressive come candeggina a base di cloro, fosfati o sbiancanti ottici sintetici (che lasciano molecole riflettenti sui tessuti che irritano la pelle). Per pelli iper-reattive o per il bucato dei neonati consigliamo la nostra variante "Fiori di Cotone" a fragranza ultra-delicata.
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="bg-linenCrema rounded-2xl border border-stone-200/50 overflow-hidden transition-all duration-300">
+          <button @click="openFaq = openFaq === 3 ? null : 3" class="w-full px-6 py-4 text-stone-800 text-left flex items-center justify-between font-bold hover:text-warmTerracotta focus:outline-none">
+            <span>Il foglio si scioglie completamente senza inquinare le acque?</span>
+            <span class="text-xl transform transition-transform duration-300" :class="openFaq === 3 ? 'rotate-180 text-warmTerracotta' : ''">▼</span>
+          </button>
+          
+          <div x-show="openFaq === 3" x-transition:enter="transition ease-out duration-300" class="px-6 pb-5 text-sm text-stone-600 leading-relaxed border-t border-stone-200/40 pt-3 font-light">
+            Sì. La matrice idrosolubile del foglio è composta da Alcol Polivinilico (PVA) a bassissima percentuale ed amido di avena. È certificato come completamente biodegradabile in pochi giorni (secondo i rigidi test di degradabilità OECD) e non rilascia polimeri accumulabili o microplastiche nei sistemi idrici e negli oceani.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-botanicalGreen text-stone-300 py-16 border-t border-stone-800">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <span class="text-3xl font-normal text-white font-serif mb-4 block">
+          Neway<span class="text-warmTerracotta">.</span>
+        </span>
+        <p class="text-xs text-stone-400 leading-relaxed">
+          Il brand italiano che fonde la scienza della detergenza e la sapienza erboristica. Sostenibile, prezioso, unico.
+        </p>
+      </div>
+      <div class="flex flex-col space-y-2 text-xs">
+        <h5 class="font-bold text-white uppercase tracking-wider mb-2">Legal &amp; Supporto</h5>
+        <a href="privacy.html" class="hover:text-white transition-colors">Termini e Condizioni</a>
+        <a href="privacy.html" class="hover:text-white transition-colors">Informativa sulla Privacy</a>
+      </div>
+      <div class="text-xs text-stone-400 flex flex-col justify-between">
+        <p>© 2026 Neway S.r.l. Società Benefit. Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+</body></html>
