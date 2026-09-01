@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeWay | Contatti & Assistenza B2B</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    .font-display { font-family: 'Fraunces', serif; }
+    .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#F4F9F8] text-[#0F3832] font-sans antialiased" x-data="{ mobileMenu: false, sent: false }">
+
+  <!-- NAVBAR -->
+  <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-[#0D9488]/10">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index_var_a.html" class="font-display font-extrabold text-2xl tracking-tight text-[#0F3832] flex items-center gap-2">
+        <span class="w-7 h-7 rounded-lg bg-[#0D9488] text-white flex items-center justify-center text-sm font-sans">N</span>
+        NeWay
+      </a>
+
+      <button @click="mobileMenu = true" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#0F3832] transition flex items-center gap-2 font-bold text-xs">
+        <span class="text-slate-600 hidden sm:inline">Menu</span>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- DRAWER -->
+  <div x-show="mobileMenu" class="fixed inset-0 z-50 overflow-hidden" style="display: none;">
+    <div @click="mobileMenu = false" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"></div>
+    <div class="fixed inset-y-0 right-0 max-w-full flex">
+      <div class="w-screen max-w-sm bg-white shadow-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-6 border-b border-slate-100">
+            <span class="font-display font-bold text-xl text-[#0F3832]">Navigazione</span>
+            <button @click="mobileMenu = false" class="p-2 rounded-lg text-slate-400 hover:text-slate-700">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <nav class="mt-6 space-y-2">
+            <a href="index_var_a.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>🏠</span> Home
+            </a>
+            <a href="product_3d_var_a.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>🔬</span> Prodotto & Scheda 3D
+            </a>
+            <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>👨‍🔬</span> Chi Siamo (Il Fondatore)
+            </a>
+            <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold bg-[#E6FFFA] text-[#0D9488] transition">
+              <span>✉️</span> Contatti & B2B
+            </a>
+            <a href="legal.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>⚖️</span> Termini, Recesso & Privacy
+            </a>
+          </nav>
+        </div>
+        <div class="pt-6 border-t border-slate-100 text-xs text-slate-500">
+          <p class="font-bold text-[#0F3832]">Project NeWay</p>
+          <p>Conforme Reg. CE 648/2004</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTACT CONTENT -->
+  <main class="py-16 px-6 max-w-3xl mx-auto">
+    <div class="text-center max-w-xl mx-auto mb-10">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#E6FFFA] text-[#0D9488]">Supporto Diretto</span>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-[#0F3832] font-display mt-2 mb-3">Parla con noi</h1>
+      <p class="text-slate-600 text-sm">Hai domande tecniche sulla composizione, vuoi candidare il tuo negozio/erboristeria per i lotti pilota o chiedere informazioni? Rispondiamo entro 24 ore.</p>
+    </div>
+
+    <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-[#0D9488]/15">
+      <div x-show="!sent">
+        <form @submit.prevent="sent = true" class="space-y-4 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Nome e Cognome</label>
+              <input type="text" required placeholder="Mario Rossi" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#0D9488]">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Email</label>
+              <input type="email" required placeholder="mario@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#0D9488]">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Seleziona il motivo del contatto</label>
+            <select class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#0D9488] bg-white">
+              <option>Domanda tecnica sulla composizione molecolare</option>
+              <option>Richiesta B2B per Erboristerie / Negozi Bio</option>
+              <option>Informazioni sul programma Tester Pilota</option>
+              <option>Altro</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Messaggio</label>
+            <textarea rows="4" required placeholder="Scrivi qui la tua richiesta..." class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#0D9488]"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-xl bg-[#0D9488] hover:bg-[#0F766E] text-white font-extrabold text-sm shadow-md transition">
+            Invia Messaggio &rarr;
+          </button>
+        </form>
+      </div>
+
+      <div x-show="sent" class="text-center py-8 space-y-3" style="display: none;">
+        <span class="text-5xl">✉️</span>
+        <h3 class="text-2xl font-bold text-[#0F3832] font-display">Messaggio Inviato!</h3>
+        <p class="text-xs text-slate-600">Grazie per averci contattato. Manuel o un membro del team ti risponderà entro 24 ore lavorative.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-8 bg-[#0F3832] text-slate-300 text-xs px-6 mt-12">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 Project NeWay &bull; [PC_RAGIONE_SOCIALE] &bull; P.IVA: [PC_P_IVA]</p>
+      <div class="flex gap-6">
+        <a href="index_var_a.html" class="hover:underline">Home</a>
+        <a href="product_3d_var_a.html" class="hover:underline">Scheda 3D</a>
+        <a href="about.html" class="hover:underline">Chi Siamo</a>
+        <a href="legal.html" class="hover:underline">Termini & Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
