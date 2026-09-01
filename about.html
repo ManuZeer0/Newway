@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeWay | Chi Siamo & La Nostra Visione</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    .font-display { font-family: 'Fraunces', serif; }
+    .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .squiggle-lime {
+      color: #84CC16;
+      text-decoration: underline;
+      text-decoration-style: wavy;
+      text-decoration-color: #A3E635;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 6px;
+    }
+  </style>
+</head>
+<body class="bg-[#F4F9F8] text-[#0F3832] font-sans antialiased" x-data="{ mobileMenu: false }">
+
+  <!-- NAVBAR -->
+  <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-[#0D9488]/10">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index_var_a.html" class="font-display font-extrabold text-2xl tracking-tight text-[#0F3832] flex items-center gap-2">
+        <span class="w-7 h-7 rounded-lg bg-[#0D9488] text-white flex items-center justify-center text-sm font-sans">N</span>
+        NeWay
+      </a>
+
+      <button @click="mobileMenu = true" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#0F3832] transition flex items-center gap-2 font-bold text-xs">
+        <span class="text-slate-600 hidden sm:inline">Menu</span>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- DRAWER -->
+  <div x-show="mobileMenu" class="fixed inset-0 z-50 overflow-hidden" style="display: none;">
+    <div @click="mobileMenu = false" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"></div>
+    <div class="fixed inset-y-0 right-0 max-w-full flex">
+      <div class="w-screen max-w-sm bg-white shadow-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-6 border-b border-slate-100">
+            <span class="font-display font-bold text-xl text-[#0F3832]">Navigazione</span>
+            <button @click="mobileMenu = false" class="p-2 rounded-lg text-slate-400 hover:text-slate-700">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <nav class="mt-6 space-y-2">
+            <a href="index_var_a.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>🏠</span> Home
+            </a>
+            <a href="product_3d_var_a.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>🔬</span> Prodotto & Scheda 3D
+            </a>
+            <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold bg-[#E6FFFA] text-[#0D9488] transition">
+              <span>👨‍🔬</span> Chi Siamo (Il Fondatore)
+            </a>
+            <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>✉️</span> Contatti & B2B
+            </a>
+            <a href="legal.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>⚖️</span> Termini, Recesso & Privacy
+            </a>
+          </nav>
+        </div>
+        <div class="pt-6 border-t border-slate-100 text-xs text-slate-500">
+          <p class="font-bold text-[#0F3832]">Project NeWay</p>
+          <p>Conforme Reg. CE 648/2004</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN ABOUT CONTENT -->
+  <main class="py-16 px-6 max-w-4xl mx-auto space-y-12">
+    
+    <div class="text-center max-w-2xl mx-auto space-y-3">
+      <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#E6FFFA] text-[#0D9488]">The Chemist Behind NeWay</span>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-[#0F3832] font-display leading-tight">
+        Perché abbiamo deciso di <span class="squiggle-lime">reinventare il bucato</span>.
+      </h1>
+      <p class="text-slate-600 text-base">La storia di una scelta scientifica e controcorrente.</p>
+    </div>
+
+    <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-[#0D9488]/15 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+      <div class="md:col-span-4 text-center">
+        <div class="w-36 h-36 rounded-full bg-[#E6FFFA] border-4 border-[#0D9488]/20 mx-auto flex items-center justify-center text-5xl mb-4 shadow-inner">
+          👨‍🔬
+        </div>
+        <h3 class="font-bold text-[#0F3832] text-xl">Manuel De Simone</h3>
+        <span class="text-xs font-semibold text-[#0D9488]">Fondatore & Background in Chimica</span>
+      </div>
+
+      <div class="md:col-span-8 space-y-4 text-slate-600 text-sm leading-relaxed">
+        <h2 class="text-xl font-bold text-[#0F3832] font-display">
+          "Da chimico, guardando i flaconi di detersivo al supermercato vedevo due paradossi."
+        </h2>
+        <p>
+          Il primo: <strong>l’80% del contenuto dei normali flaconi liquidi è semplice acqua</strong> demineralizzata. Significa che ogni famiglia paga per trasportare taniche pesantissime su gomma, moltiplicando emissioni e plastica monouso.
+        </p>
+        <p>
+          Il secondo: formule piene di coloranti fluorescenti, riempitivi e sbiancanti ottici che non aumentano il pulito reale, ma rimangono intrappolati nelle fibre a contatto con la pelle.
+        </p>
+        <p>
+          Ho creato <strong>NeWay</strong> per tornare all'essenza: comprimere solo le molecole attive, i bio-enzimi efficaci a freddo a 20°C e un film 100% idrosolubile biodegradabile.
+        </p>
+      </div>
+    </div>
+
+    <!-- I NOSTRI 3 VALORI -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center">
+        <span class="text-3xl mb-2 block">🧪</span>
+        <h3 class="font-bold text-[#0F3832] mb-1">Chimica Consapevole</h3>
+        <p class="text-xs text-slate-600">Solo ingredienti funzionali con biodegradabilità certificata OECD 301.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center">
+        <span class="text-3xl mb-2 block">📦</span>
+        <h3 class="font-bold text-[#0F3832] mb-1">Zero Plastica Monouso</h3>
+        <p class="text-xs text-slate-600">Packaging in cartone FSC riciclabile e compresse ultracompatte.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center">
+        <span class="text-3xl mb-2 block">🤝</span>
+        <h3 class="font-bold text-[#0F3832] mb-1">Trasparenza Totale</h3>
+        <p class="text-xs text-slate-600">Schede tecniche aperte e paper scientifici consultabili liberamente.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-8 bg-[#0F3832] text-slate-300 text-xs px-6 mt-12">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 Project NeWay &bull; [PC_RAGIONE_SOCIALE] &bull; P.IVA: [PC_P_IVA]</p>
+      <div class="flex gap-6">
+        <a href="index_var_a.html" class="hover:underline">Home</a>
+        <a href="product_3d_var_a.html" class="hover:underline">Scheda 3D</a>
+        <a href="contact.html" class="hover:underline">Contatti</a>
+        <a href="legal.html" class="hover:underline">Termini & Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
