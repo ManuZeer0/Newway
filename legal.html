@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeWay | Hub Legale, Privacy Policy & Termini di Servizio</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    .font-display { font-family: 'Fraunces', serif; }
+    .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#F8FAF9] text-[#0F3832] font-sans antialiased" x-data="{ currentTab: window.location.hash === '#privacy' ? 'privacy' : 'termini' }">
+
+  <!-- NAVBAR -->
+  <header class="bg-white sticky top-0 z-40 border-b border-slate-200">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index_var_a.html" class="font-display font-extrabold text-2xl tracking-tight text-[#0F3832] flex items-center gap-2">
+        <span class="w-7 h-7 rounded-lg bg-[#0D9488] text-white flex items-center justify-center text-sm font-sans">N</span>
+        NeWay
+      </a>
+      <div class="flex items-center gap-4">
+        <a href="index_var_a.html" class="text-xs font-bold text-[#0D9488] hover:underline">&larr; Ritorna al Sito</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HEADER -->
+  <section class="pt-12 pb-8 px-6 max-w-4xl mx-auto text-center">
+    <span class="text-xs font-extrabold uppercase tracking-wider text-[#0D9488]">Trasparenza & Tutela del Consumatore</span>
+    <h1 class="text-3xl md:text-4xl font-extrabold text-[#0F3832] font-display mt-2 mb-3">Hub Legale & Contrattuale</h1>
+    <p class="text-xs text-slate-500">Ultimo aggiornamento: Settembre 2026 &bull; Conforme a Direttiva UE 2011/83/UE, GDPR (Reg. UE 2016/679) e Reg. CE n. 648/2004</p>
+    
+    <!-- TAB SWITCHER -->
+    <div class="inline-flex p-1.5 rounded-2xl bg-slate-200/70 mt-8 gap-2">
+      <button @click="currentTab = 'termini'; window.location.hash = 'termini'" :class="currentTab === 'termini' ? 'bg-white text-[#0F3832] shadow-sm' : 'text-slate-600 hover:text-slate-900'" class="px-6 py-2.5 rounded-xl font-bold text-xs transition">
+        Termini di Servizio, Resi & Recesso
+      </button>
+      <button @click="currentTab = 'privacy'; window.location.hash = 'privacy'" :class="currentTab === 'privacy' ? 'bg-white text-[#0F3832] shadow-sm' : 'text-slate-600 hover:text-slate-900'" class="px-6 py-2.5 rounded-xl font-bold text-xs transition">
+        Informativa Privacy & Cookie (GDPR)
+      </button>
+    </div>
+  </section>
+
+  <!-- CONTENT -->
+  <main class="max-w-4xl mx-auto px-6 pb-20">
+    <div class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-200">
+      
+      <!-- TAB 1: TERMINI, CONDIZIONI, RESO E DIRITTO DI RECESSO UE -->
+      <div x-show="currentTab === 'termini'" class="space-y-8 text-sm text-slate-600 leading-relaxed">
+        
+        <div>
+          <h2 class="text-xl font-bold text-[#0F3832] font-display mb-2">1. Dati Societari del Venditore</h2>
+          <p>Il presente sito e il marchio <strong>NeWay</strong> sono gestiti da <strong>[PC_RAGIONE_SOCIALE]</strong>, con sede legale in [PC_SEDE_LEGALE], P.IVA/C.F. [PC_P_IVA], REA [PC_NUMERO_REA], PEC: [PC_PEC], Email di supporto: [PC_EMAIL_SUPPORTO].</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-bold text-[#0F3832] font-display mb-2">2. Oggetto del Servizio & Programma Pilota</h2>
+          <p>NeWay commercializza compresse detergenti concentrate per bucato ed eroga programmi di campionatura pilota per il test del prodotto. Le transazioni online sono regolate dalle norme del Codice del Consumo italiano (D.Lgs. 206/2005 e successive modifiche) e dalle direttive europee sul commercio elettronico.</p>
+        </div>
+
+        <!-- DIRITTO DI RECESSO & RESI UE (CONFORME 14 GG) -->
+        <div class="p-6 rounded-2xl bg-[#F4F9F8] border border-[#0D9488]/20 space-y-3">
+          <h2 class="text-lg font-bold text-[#0F3832] flex items-center gap-2">
+            <span>🛡️</span> 3. Diritto di Recesso e Reso (14 Giorni - Direttiva UE 2011/83/UE)
+          </h2>
+          <p class="text-xs">
+            In conformità all'art. 52 del Codice del Consumo, il consumatore ha diritto di recedere dal contratto di acquisto per qualsiasi motivo, senza dover fornire spiegazioni e senza penalità, entro il termine di <strong>14 giorni</strong> dalla data di ricezione dei prodotti.
+          </p>
+          <p class="text-xs">
+            <strong>Modalità di esercizio:</strong> Per esercitare il recesso, è sufficiente inviare comunicazione scritta a [PC_EMAIL_SUPPORTO] indicando il numero d'ordine. Il rimborso completo verrà emesso entro 14 giorni dalla ricezione del reso con lo stesso metodo di pagamento utilizzato.
+          </p>
+          <p class="text-xs text-amber-800 bg-amber-50 p-3 rounded-lg border border-amber-200">
+            <strong>Eccezioni igieniche e di sicurezza:</strong> Ai sensi dell'art. 59 lett. e) del Codice del Consumo, il diritto di recesso è escluso per le confezioni di detergenti e tabs che siano state <em>aperte o parzialmente utilizzate</em> dopo la consegna, per motivi igienici e di protezione della salute.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-bold text-[#0F3832] font-display mb-2">4. Garanzia Legale di Conformità</h2>
+          <p>Tutti i prodotti commercializzati beneficiano della garanzia legale di 24 mesi per i difetti di conformità ai sensi degli artt. 128 e ss. del Codice del Consumo.</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-bold text-[#0F3832] font-display mb-2">5. Risoluzione Controversie Online (ODR)</h2>
+          <p>Ai sensi dell'art. 14 del Regolamento UE n. 524/2013, si informa il consumatore che è disponibile la piattaforma istituita dalla Commissione Europea per la risoluzione extragiudiziale online delle controversie (ODR): <a href="https://ec.europa.eu/consumers/odr" target="_blank" class="text-[#0D9488] underline">https://ec.europa.eu/consumers/odr</a>.</p>
+        </div>
+
+      </div>
+
+      <!-- TAB 2: PRIVACY POLICY & COOKIE (GDPR) -->
+      <div x-show="currentTab === 'privacy'" class="space-y-8 text-sm text-slate-600 leading-relaxed" style="display: none;">
+        
+        <div>
+          <h2 class="text-xl font-bold text-[#0F3832] font-display mb-2">1. Titolare del Trattamento dei Dati</h2>
+          <p>Il Titolare del Trattamento è <strong>[PC_RAGIONE_SOCIALE]</strong>, [PC_SEDE_LEGALE], contattabile all'indirizzo email: [PC_EMAIL_PRIVACY].</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-bold text-[#0F3832] font-display mb-2">2. Dati Raccolti e Finalità del Trattamento</h2>
+          <ul class="list-disc pl-5 space-y-2 text-xs">
+            <li><strong>Gestione Ordini e Campionatura Pilota:</strong> nome, cognome, indirizzo di spedizione, email e telefono (Base giuridica: esecuzione del contratto / richiesta dell'interessato).</li>
+            <li><strong>Questionario Feedback Qualitativo:</strong> risposte volontarie sulle performance del bucato per miglioramento della formulazione (Base giuridica: legittimo interesse / consenso esplicito).</li>
+            <li><strong>Comunicazioni di Marketing & Lancio Ufficiale:</strong> previo consenso espresso dell'utente (revocabile in qualsiasi momento).</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-bold text-[#0F3832] font-display mb-2">3. Conservazione dei Dati e Sicurezza</h2>
+          <p class="text-xs">I dati non vengono ceduti a terze parti a scopi commerciali. Sono conservati su server protetti conformi agli standard di sicurezza GDPR all'interno dello Spazio Economico Europeo (SEE).</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-bold text-[#0F3832] font-display mb-2">4. Diritti dell'Interessato (Artt. 15-22 GDPR)</h2>
+          <p class="text-xs">Hai il diritto di richiedere l'accesso, la rettifica, la cancellazione (diritto all'oblio), la limitazione del trattamento o la portabilità dei tuoi dati inviando un'email a [PC_EMAIL_PRIVACY]. Hai inoltre il diritto di proporre reclamo al Garante per la Protezione dei Dati Personali (garanteprivacy.it).</p>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-6 bg-slate-100 border-t border-slate-200 text-center text-xs text-slate-500">
+    &copy; 2026 Project NeWay &bull; [PC_RAGIONE_SOCIALE] &bull; Codice UFI: [PC_UFI_CODE]
+  </footer>
+
+</body>
+</html>
