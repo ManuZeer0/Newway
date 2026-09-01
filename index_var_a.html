@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeWay | Il Pulito Concentrato Senza Acqua Inutile</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    .font-display { font-family: 'Fraunces', serif; }
+    .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .squiggle-lime {
+      color: #84CC16;
+      text-decoration: underline;
+      text-decoration-style: wavy;
+      text-decoration-color: #A3E635;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 6px;
+    }
+  </style>
+</head>
+<body class="bg-[#F4F9F8] text-[#0F3832] font-sans antialiased selection:bg-[#E4F874] selection:text-[#0F3832]" x-data="{ mobileMenu: false, selectedFragrance: 'agrumi', leadForm: { email: '', name: '', fragrance: 'agrumi', consent: false }, isSubmitted: false }">
+
+  <!-- TOP BANNER -->
+  <div class="bg-[#0D9488] text-white text-xs font-semibold py-2 px-4 text-center tracking-wide">
+    🚀 <strong>Lotto Pilota Italia</strong>: 100 Box di test disponibili &bull; Spedizione e campioni gratuiti in cambio del tuo feedback
+  </div>
+
+  <!-- NAVBAR CON HAMBURGER MENU A 3 LINEETTE -->
+  <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-[#0D9488]/10">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index_var_a.html" class="font-display font-extrabold text-2xl tracking-tight text-[#0F3832] flex items-center gap-2">
+        <span class="w-7 h-7 rounded-lg bg-[#0D9488] text-white flex items-center justify-center text-sm font-sans">N</span>
+        NeWay
+      </a>
+
+      <!-- BOTTONE 3 LINEETTE -->
+      <button @click="mobileMenu = true" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#0F3832] transition flex items-center gap-2 font-bold text-xs">
+        <span class="text-slate-600 hidden sm:inline">Menu</span>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- MENU LATERALE A SCOMPARSA (DRAWER) -->
+  <div x-show="mobileMenu" class="fixed inset-0 z-50 overflow-hidden" style="display: none;">
+    <div @click="mobileMenu = false" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"></div>
+    <div class="fixed inset-y-0 right-0 max-w-full flex">
+      <div class="w-screen max-w-sm bg-white shadow-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-6 border-b border-slate-100">
+            <span class="font-display font-bold text-xl text-[#0F3832]">Navigazione</span>
+            <button @click="mobileMenu = false" class="p-2 rounded-lg text-slate-400 hover:text-slate-700">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <nav class="mt-6 space-y-2">
+            <a href="index_var_a.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold bg-[#E6FFFA] text-[#0D9488] transition">
+              <span>🏠</span> Home
+            </a>
+            <a href="product_3d_var_a.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>🔬</span> Prodotto & Scheda Tecnica 3D
+            </a>
+            <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>👨‍🔬</span> Chi Siamo (Il Fondatore)
+            </a>
+            <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>✉️</span> Contatti & B2B
+            </a>
+            <a href="legal.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>⚖️</span> Termini, Recesso & Privacy
+            </a>
+          </nav>
+        </div>
+        <div class="pt-6 border-t border-slate-100 text-xs text-slate-500">
+          <p class="font-bold text-[#0F3832]">Project NeWay</p>
+          <p>Conforme Regolamento CE 648/2004</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="pt-12 pb-20 px-6 max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <div class="lg:col-span-7 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#E6FFFA] text-[#0D9488] border border-[#0D9488]/20">
+          🌱 0% Plastica &bull; 100% Attivo &bull; Zero Sprechi
+        </div>
+        
+        <h1 class="text-4xl md:text-6xl font-extrabold text-[#0F3832] leading-[1.12] font-display">
+          Il bucato che fa bene ai vestiti, e <span class="squiggle-lime">strappa un sorriso</span> al pianeta.
+        </h1>
+        
+        <p class="text-slate-600 text-lg md:text-xl leading-relaxed">
+          Niente flaconi pesanti come manubri da palestra, né liquidi appiccicosi pieni d’acqua. Metti una compressa ultraconcentrata nel cestello, fai partire la lavatrice e <span class="squiggle-lime font-bold">vai a farti un caffè</span>.
+        </p>
+
+        <div class="pt-2 flex flex-col sm:flex-row gap-4">
+          <a href="#pilot-box" class="px-8 py-4 bg-[#0D9488] hover:bg-[#0F766E] text-white font-extrabold rounded-2xl shadow-lg shadow-[#0D9488]/20 transition text-center text-base">
+            Richiedi la tua Box Pilota &rarr;
+          </a>
+          <a href="product_3d_var_a.html" class="px-6 py-4 bg-white hover:bg-slate-50 text-[#0F3832] font-bold rounded-2xl border border-slate-200 transition text-center text-base flex items-center justify-center gap-2">
+            <span>🔬</span> Esplora il Modello 3D
+          </a>
+        </div>
+
+        <div class="pt-4 flex items-center gap-6 text-xs text-slate-500 font-medium">
+          <span class="flex items-center gap-1.5">💧 Si scioglie a 20°C</span>
+          <span class="flex items-center gap-1.5">📦 Confezione Salvaspazio FSC</span>
+          <span class="flex items-center gap-1.5">👶 Ipoallergenico</span>
+        </div>
+      </div>
+
+      <!-- VISUAL HERO CARD -->
+      <div class="lg:col-span-5">
+        <div class="bg-white rounded-3xl p-8 shadow-2xl border border-[#0D9488]/15 relative">
+          <div class="absolute -top-3 -right-3 bg-[#E4F874] text-[#112D25] text-xs font-extrabold px-3 py-1.5 rounded-full shadow-sm transform rotate-3">
+            Edizione Pilota: 100 Box
+          </div>
+          
+          <div class="w-full h-56 rounded-2xl bg-gradient-to-br from-[#E6FFFA] to-[#CCFBF1] flex flex-col items-center justify-center p-6 text-center border border-[#0D9488]/20 mb-6">
+            <span class="text-5xl mb-2">🌿</span>
+            <span class="font-display font-bold text-xl text-[#0F3832]">NeWay Compact Tablets</span>
+            <span class="text-xs text-[#0D9488] font-semibold mt-1">30 Lavaggi in soli 200 grammi</span>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex justify-between items-center text-xs font-bold text-slate-700">
+              <span>Box pilota assegnate:</span>
+              <span class="text-[#0D9488]">68 / 100</span>
+            </div>
+            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+              <div class="bg-[#0D9488] h-2.5 rounded-full" style="width: 68%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONFRONTO MATRIX -->
+  <section class="py-16 bg-white border-y border-[#0D9488]/10 px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <h2 class="text-3xl font-extrabold text-[#0F3832] font-display mb-3">
+          Perché pagare per <span class="squiggle-lime">trasportare acqua</span>?
+        </h2>
+        <p class="text-slate-600 text-sm md:text-base">
+          I classici detersivi contengono fino all'80% di acqua demineralizzata. Ecco la differenza.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="rounded-2xl p-6 bg-slate-50 border border-slate-200">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-2xl">❌</span>
+            <h3 class="font-bold text-slate-700 text-lg">Detersivi Tradizionali</h3>
+          </div>
+          <ul class="space-y-3 text-sm text-slate-600">
+            <li class="flex items-start gap-2">⚠️ Flaconi in plastica monouso enormi e pesanti.</li>
+            <li class="flex items-start gap-2">⚠️ Dosatori graduati appiccicosi e sovradosaggio continuo.</li>
+            <li class="flex items-start gap-2">⚠️ Trasporto di litri d'acqua con emissioni inutili.</li>
+            <li class="flex items-start gap-2">⚠️ Sbiancanti ottici e sostanze chimiche aggressive.</li>
+          </ul>
+        </div>
+
+        <div class="rounded-2xl p-6 bg-[#E6FFFA]/50 border-2 border-[#0D9488]">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-2xl">✨</span>
+            <h3 class="font-bold text-[#0F3832] text-lg">NeWay Eco-Tablets</h3>
+          </div>
+          <ul class="space-y-3 text-sm text-[#0F3832] font-medium">
+            <li class="flex items-start gap-2">✅ 100% Attivo: compresse compatte in cartoncino riciclabile FSC.</li>
+            <li class="flex items-start gap-2">✅ 1 compressa = 1 lavaggio perfetto. Zero sprechi di prodotto.</li>
+            <li class="flex items-start gap-2">✅ Peso e volume ridotti del 90%: lo riponi ovunque come un libro.</li>
+            <li class="flex items-start gap-2">✅ Formula biodegradabile (Reg. CE 648/2004) delicata sulla pelle.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELETTORE FRAGRANZE -->
+  <section class="py-16 px-6 max-w-5xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <h2 class="text-3xl font-extrabold text-[#0F3832] font-display mb-2">Scegli la tua atmosfera</h2>
+      <p class="text-slate-600 text-sm">3 varianti studiate per ogni esigenza. Quale vorresti testare per prima?</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div @click="selectedFragrance = 'agrumi'" :class="selectedFragrance === 'agrumi' ? 'border-[#0D9488] ring-2 ring-[#0D9488]/30 bg-[#E6FFFA]/30' : 'border-slate-200 bg-white'" class="cursor-pointer rounded-2xl p-6 border transition">
+        <span class="text-3xl mb-3 block">🍊</span>
+        <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#0D9488]">SKU 1 &bull; Bestseller Fresco</span>
+        <h3 class="text-lg font-bold text-[#0F3832] mt-1 mb-2">Agrumi & Brezza Marina</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">Note agrumate frizzanti e freschezza persistente. Ideale per il bucato quotidiano.</p>
+      </div>
+
+      <div @click="selectedFragrance = 'cedro'" :class="selectedFragrance === 'cedro' ? 'border-[#0D9488] ring-2 ring-[#0D9488]/30 bg-[#E6FFFA]/30' : 'border-slate-200 bg-white'" class="cursor-pointer rounded-2xl p-6 border transition">
+        <span class="text-3xl mb-3 block">🌲</span>
+        <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#0D9488]">SKU 2 &bull; Caldo & Botanico</span>
+        <h3 class="text-lg font-bold text-[#0F3832] mt-1 mb-2">Legno di Cedro & Note Ambrate</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">Profondo, rilassante, per lenzuola, asciugamani e capi che meritano una coccola.</p>
+      </div>
+
+      <div @click="selectedFragrance = 'neutro'" :class="selectedFragrance === 'neutro' ? 'border-[#0D9488] ring-2 ring-[#0D9488]/30 bg-[#E6FFFA]/30' : 'border-slate-200 bg-white'" class="cursor-pointer rounded-2xl p-6 border transition">
+        <span class="text-3xl mb-3 block">☁️</span>
+        <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#0D9488]">SKU 3 &bull; Ipoallergenico Puro</span>
+        <h3 class="text-lg font-bold text-[#0F3832] mt-1 mb-2">Pure Essential (0% Profumo)</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">0% allergeni, 0% fragranza. Ideale per neonati, pelli atopiche e soggetti sensibili.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILOT ACCESS FORM -->
+  <section id="pilot-box" class="py-16 bg-white border-t border-[#0D9488]/10 px-6">
+    <div class="max-w-2xl mx-auto bg-[#F4F9F8] rounded-3xl p-8 md:p-10 shadow-lg border border-[#0D9488]/20">
+      
+      <div class="text-center mb-6">
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#E4F874] text-[#112D25] mb-2 inline-block">Fase Pilota &bull; Valutazione Prodotto</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-[#0F3832] font-display">Richiedi la tua Box Tester</h2>
+        <p class="text-slate-600 text-xs mt-1">Ricevi 30 tabs a casa. Ti chiediamo solo 2 minuti di feedback dopo 14 giorni.</p>
+      </div>
+
+      <div x-show="!isSubmitted">
+        <form @submit.prevent="isSubmitted = true" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Nome</label>
+              <input type="text" x-model="leadForm.name" required placeholder="Mario Rossi" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#0D9488] bg-white">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Email</label>
+              <input type="email" x-model="leadForm.email" required placeholder="mario@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#0D9488] bg-white">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Fragranza scelta</label>
+            <select x-model="selectedFragrance" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#0D9488] bg-white">
+              <option value="agrumi">🍊 Agrumi & Brezza Marina</option>
+              <option value="cedro">🌲 Legno di Cedro & Note Ambrate</option>
+              <option value="neutro">☁️ Pure Essential (0% Profumo)</option>
+            </select>
+          </div>
+
+          <div class="flex items-start gap-2 pt-2">
+            <input type="checkbox" id="consent" x-model="leadForm.consent" required class="mt-1 rounded text-[#0D9488] focus:ring-0">
+            <label for="consent" class="text-xs text-slate-500 leading-snug">
+              Accetto di ricevere la box e di fornire feedback. Ho letto la <a href="legal.html#privacy" class="text-[#0D9488] underline">Privacy Policy</a>.
+            </label>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 rounded-xl bg-[#0D9488] hover:bg-[#0F766E] text-white font-extrabold text-sm shadow-md transition">
+            Invia Richiesta Box Pilota &rarr;
+          </button>
+        </form>
+      </div>
+
+      <div x-show="isSubmitted" class="text-center py-6 space-y-2" style="display: none;">
+        <span class="text-4xl">🎉</span>
+        <h3 class="text-xl font-bold text-[#0F3832] font-display">Richiesta registrata!</h3>
+        <p class="text-xs text-slate-600">Ti contatteremo via email appena la box sarà in spedizione.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-8 bg-[#0F3832] text-slate-300 text-xs px-6">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 Project NeWay &bull; [PC_RAGIONE_SOCIALE] &bull; P.IVA: [PC_P_IVA]</p>
+      <div class="flex gap-6">
+        <a href="product_3d_var_a.html" class="hover:underline">Scheda Tecnica 3D</a>
+        <a href="legal.html#privacy" class="hover:underline">Privacy Policy</a>
+        <a href="legal.html#termini" class="hover:underline">Termini & Resi</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
