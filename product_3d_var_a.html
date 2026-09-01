@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeWay | Scheda Tecnica & Modello 3D</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    .font-display { font-family: 'Fraunces', serif; }
+    .font-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .hotspot-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      z-index: 20;
+      transition: opacity 0.2s ease, transform 0.1s ease;
+    }
+  </style>
+</head>
+<body class="bg-[#F4F9F8] text-[#0F3832] font-sans antialiased" x-data="{ mobileMenu: false, activePin: 1 }">
+
+  <!-- NAVBAR CON HAMBURGER MENU A 3 LINEETTE -->
+  <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-[#0D9488]/10">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index_var_a.html" class="font-display font-extrabold text-2xl tracking-tight text-[#0F3832] flex items-center gap-2">
+        <span class="w-7 h-7 rounded-lg bg-[#0D9488] text-white flex items-center justify-center text-sm font-sans">N</span>
+        NeWay
+      </a>
+
+      <button @click="mobileMenu = true" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-[#0F3832] transition flex items-center gap-2 font-bold text-xs">
+        <span class="text-slate-600 hidden sm:inline">Menu</span>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- DRAWER MENU LATERALE -->
+  <div x-show="mobileMenu" class="fixed inset-0 z-50 overflow-hidden" style="display: none;">
+    <div @click="mobileMenu = false" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"></div>
+    <div class="fixed inset-y-0 right-0 max-w-full flex">
+      <div class="w-screen max-w-sm bg-white shadow-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-6 border-b border-slate-100">
+            <span class="font-display font-bold text-xl text-[#0F3832]">Navigazione</span>
+            <button @click="mobileMenu = false" class="p-2 rounded-lg text-slate-400 hover:text-slate-700">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <nav class="mt-6 space-y-2">
+            <a href="index_var_a.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>🏠</span> Home
+            </a>
+            <a href="product_3d_var_a.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold bg-[#E6FFFA] text-[#0D9488] transition">
+              <span>🔬</span> Prodotto & Scheda 3D
+            </a>
+            <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>👨‍🔬</span> Chi Siamo (Il Fondatore)
+            </a>
+            <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>✉️</span> Contatti & B2B
+            </a>
+            <a href="legal.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
+              <span>⚖️</span> Termini, Recesso & Privacy
+            </a>
+          </nav>
+        </div>
+        <div class="pt-6 border-t border-slate-100 text-xs text-slate-500">
+          <p class="font-bold text-[#0F3832]">Project NeWay</p>
+          <p>Conforme Reg. CE 648/2004</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN PRODUCT CONTAINER -->
+  <main class="py-10 px-6 max-w-5xl mx-auto">
+    
+    <div class="text-center max-w-2xl mx-auto mb-8">
+      <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#E6FFFA] text-[#0D9488]">Trasparenza Scientifica &bull; Open Formulation</span>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-[#0F3832] font-display mt-2 mb-2">
+        Esplora la compressa NeWay
+      </h1>
+      <p class="text-slate-600 text-sm md:text-base">
+        Trascina per ruotare la tablet a 360°. Il <strong>Punto 1</strong> si trova sul fronte e il <strong>Punto 2</strong> sul retro opposto: ruotando l'oggetto vedrai apparire e scomparire i punti di interesse ancorati alla superficie!
+      </p>
+    </div>
+
+    <!-- 3D VIEWER CONTAINER -->
+    <div class="bg-white rounded-3xl p-4 md:p-6 shadow-xl border border-[#0D9488]/15 relative">
+      <div id="canvas-container" class="w-full h-96 sm:h-[440px] rounded-2xl bg-gradient-to-b from-[#E5EFEB] to-[#D8E6E2] shadow-inner relative overflow-hidden flex items-center justify-center cursor-grab active:cursor-grabbing border border-slate-200">
+        
+        <!-- PALLINO INTERATTIVO 1 (Fronte - ancorato in 3D) -->
+        <div id="pin-1" @click="activePin = 1" class="hotspot-pin flex items-center gap-2 group" style="top: 50%; left: 50%;">
+          <div :class="activePin === 1 ? 'ring-4 ring-[#0D9488]/50 scale-110' : ''" class="w-8 h-8 rounded-full bg-[#0D9488] text-white flex items-center justify-center font-black text-xs shadow-lg group-hover:scale-125 transition">
+            1
+          </div>
+          <div class="bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl text-xs font-bold text-[#0F3832] shadow-md border border-slate-200 pointer-events-none hidden sm:block">
+            Tensioattivi & Pellicola Solubile
+          </div>
+        </div>
+
+        <!-- PALLINO INTERATTIVO 2 (Retro - ancorato in 3D sul lato opposto) -->
+        <div id="pin-2" @click="activePin = 2" class="hotspot-pin flex items-center gap-2 group" style="top: 50%; left: 50%;">
+          <div :class="activePin === 2 ? 'ring-4 ring-[#84CC16]/50 scale-110' : ''" class="w-8 h-8 rounded-full bg-[#84CC16] text-[#0F3832] flex items-center justify-center font-black text-xs shadow-lg group-hover:scale-125 transition">
+            2
+          </div>
+          <div class="bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-xl text-xs font-bold text-[#0F3832] shadow-md border border-slate-200 pointer-events-none hidden sm:block">
+            Bio-Enzimi & Addolcenti Minerali
+          </div>
+        </div>
+
+        <div class="absolute bottom-3 right-3 bg-white/80 backdrop-blur-sm px-3 py-1 rounded-lg text-[10px] font-semibold text-slate-500 pointer-events-none">
+          🔄 Ruota a 360° per vedere fronte e retro
+        </div>
+      </div>
+    </div>
+
+    <!-- SCHEDA INGREDIENTI IN ITALIANO CON LINK DIRETTI AI PAPER SCIENTIFICI -->
+    <div class="mt-8 bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-[#0D9488]/15 space-y-8">
+      
+      <!-- DETTAGLIO PUNTO 1 -->
+      <div x-show="activePin === 1" class="space-y-6">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+          <div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-[#E6FFFA] text-[#0D9488]">Punto 1 Selezionato (Fronte)</span>
+            <h2 class="text-2xl font-bold text-[#0F3832] font-display mt-1">Tensioattivi Primari & Pellicola Idrosolubile</h2>
+          </div>
+          <button @click="activePin = 2" class="text-xs font-bold text-[#0D9488] hover:underline">
+            Passa a Punto 2 (Retro) &rarr;
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- SLS -->
+          <div class="p-5 rounded-2xl bg-[#F4F9F8] border border-slate-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-sm text-[#0F3832]">Sodio Lauril Solfato (SLS da fonte vegetale)</span>
+              <span class="text-xs font-mono font-bold text-[#0D9488]">10% - 30%</span>
+            </div>
+            <p class="text-xs text-slate-600">Tensioattivo anionico primario ricavato da cocco. Scioglie ed emulsiona grassi e unto anche in acqua fredda a 20°C.</p>
+            <div class="pt-2 border-t border-slate-200 text-[11px]">
+              <a href="https://doi.org/10.1007/s11743-007-1045-8" target="_blank" class="text-[#0D9488] font-bold hover:underline flex items-center gap-1">
+                <span>🔗 Paper Scientifico:</span> Biodegradazione rapida &gt;90% (OECD 301) &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Olefin Sulfonate -->
+          <div class="p-5 rounded-2xl bg-[#F4F9F8] border border-slate-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-sm text-[#0F3832]">Sodio C14-16 Olefina Solfonato</span>
+              <span class="text-xs font-mono font-bold text-[#0D9488]">1% - 10%</span>
+            </div>
+            <p class="text-xs text-slate-600">Co-tensioattivo a schiumosità controllata ad elevata efficacia anche in presenza di acqua dura e calcarea.</p>
+            <div class="pt-2 border-t border-slate-200 text-[11px]">
+              <a href="https://pubmed.ncbi.nlm.nih.gov/17498425/" target="_blank" class="text-[#0D9488] font-bold hover:underline flex items-center gap-1">
+                <span>🔗 Paper Scientifico:</span> Profilo ecotossicologico e sicurezza d'uso &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Capryl Glucoside -->
+          <div class="p-5 rounded-2xl bg-[#F4F9F8] border border-slate-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-sm text-[#0F3832]">Capril Glucoside & Alchil Poliglucosidi Vegetali</span>
+              <span class="text-xs font-mono font-bold text-[#0D9488]">1% - 5%</span>
+            </div>
+            <p class="text-xs text-slate-600">Tensioattivi non-ionici derivati da zuccheri e cocco, delicatissimi sulla pelle e protettivi per la fibra dei tessuti.</p>
+            <div class="pt-2 border-t border-slate-200 text-[11px]">
+              <a href="https://doi.org/10.1039/C2GC35450K" target="_blank" class="text-[#0D9488] font-bold hover:underline flex items-center gap-1">
+                <span>🔗 Paper Scientifico:</span> Proprietà dei poliglucosidi nella detergenza ecologica &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- PVA Film -->
+          <div class="p-5 rounded-2xl bg-[#F4F9F8] border border-slate-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-sm text-[#0F3832]">Alcol Polivinilico (Pellicola Idrosolubile in PVA)</span>
+              <span class="text-xs font-mono font-bold text-[#0D9488]">&lt; 5%</span>
+            </div>
+            <p class="text-xs text-slate-600">Pellicola idrosolubile ecocompatibile. Si dissolve completamente in pochi secondi a 20°C senza lasciare microplastiche.</p>
+            <div class="pt-2 border-t border-slate-200 text-[11px]">
+              <a href="https://doi.org/10.1016/j.watres.2021.117126" target="_blank" class="text-[#0D9488] font-bold hover:underline flex items-center gap-1">
+                <span>🔗 Paper Scientifico:</span> Digestione microbica del PVA nei depuratori &rarr;
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DETTAGLIO PUNTO 2 -->
+      <div x-show="activePin === 2" class="space-y-6" style="display: none;">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+          <div>
+            <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-[#84CC16]/20 text-[#0F3832]">Punto 2 Selezionato (Retro)</span>
+            <h2 class="text-2xl font-bold text-[#0F3832] font-display mt-1">Bio-Enzimi, Regolatori di pH & Addolcenti Minerali</h2>
+          </div>
+          <button @click="activePin = 1" class="text-xs font-bold text-[#0D9488] hover:underline">
+            &larr; Passa a Punto 1 (Fronte)
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Enzimi -->
+          <div class="p-5 rounded-2xl bg-[#F4F9F8] border border-slate-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-sm text-[#0F3832]">Bio-Enzimi Attivi (Proteasi & Amilasi)</span>
+              <span class="text-xs font-mono font-bold text-[#0D9488]">&lt; 1%</span>
+            </div>
+            <p class="text-xs text-slate-600">Catalizzatori biologici naturali che scompongono le macchie organiche (cibo, erba, sangue, amidi) a basse temperature.</p>
+            <div class="pt-2 border-t border-slate-200 text-[11px]">
+              <a href="https://doi.org/10.1016/j.biotechadv.2015.01.007" target="_blank" class="text-[#0D9488] font-bold hover:underline flex items-center gap-1">
+                <span>🔗 Paper Scientifico:</span> Enzimi attivi a freddo per il risparmio energetico &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Carbonato di Sodio -->
+          <div class="p-5 rounded-2xl bg-[#F4F9F8] border border-slate-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-sm text-[#0F3832]">Carbonato di Sodio (Soda da bucato minerale)</span>
+              <span class="text-xs font-mono font-bold text-[#0D9488]">30% - 50%</span>
+            </div>
+            <p class="text-xs text-slate-600">Addolcente minerale ecologico che regola il pH dell'acqua ed esalta la naturale potenza lavante della compressa.</p>
+            <div class="pt-2 border-t border-slate-200 text-[11px]">
+              <a href="https://doi.org/10.1016/j.jclepro.2018.06.282" target="_blank" class="text-[#0D9488] font-bold hover:underline flex items-center gap-1">
+                <span>🔗 Paper Scientifico:</span> Valutazione del ciclo di vita dei builder minerali &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Acido Citrico -->
+          <div class="p-5 rounded-2xl bg-[#F4F9F8] border border-slate-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-sm text-[#0F3832]">Acido Citrico Anidro Naturale</span>
+              <span class="text-xs font-mono font-bold text-[#0D9488]">5% - 15%</span>
+            </div>
+            <p class="text-xs text-slate-600">Agente sequestrante naturale che neutralizza il calcare e previene l'ingrigimento dei capi senza usare fosfati nocivi.</p>
+            <div class="pt-2 border-t border-slate-200 text-[11px]">
+              <a href="https://doi.org/10.1039/B513904K" target="_blank" class="text-[#0D9488] font-bold hover:underline flex items-center gap-1">
+                <span>🔗 Paper Scientifico:</span> Sostituzione ecologica dei fosfati con acido citrico &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- CAB -->
+          <div class="p-5 rounded-2xl bg-[#F4F9F8] border border-slate-200 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-sm text-[#0F3832]">Cocamidopropil Betaina (CAB da cocco)</span>
+              <span class="text-xs font-mono font-bold text-[#0D9488]">1% - 5%</span>
+            </div>
+            <p class="text-xs text-slate-600">Tensioattivo anfotero vegetale ad azione ammorbidente naturale per proteggere le fibre e la pelle sensibile.</p>
+            <div class="pt-2 border-t border-slate-200 text-[11px]">
+              <a href="https://doi.org/10.1111/j.1600-0536.2007.01211.x" target="_blank" class="text-[#0D9488] font-bold hover:underline flex items-center gap-1">
+                <span>🔗 Paper Scientifico:</span> Sicurezza dermatologica dei tensioattivi anfoteri &rarr;
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-8 bg-[#0F3832] text-slate-300 text-xs px-6 mt-12">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 Project NeWay &bull; [PC_RAGIONE_SOCIALE] &bull; P.IVA: [PC_P_IVA]</p>
+      <div class="flex gap-6">
+        <a href="index_var_a.html" class="hover:underline">Home</a>
+        <a href="about.html" class="hover:underline">Chi Siamo</a>
+        <a href="contact.html" class="hover:underline">Contatti</a>
+        <a href="legal.html" class="hover:underline">Termini & Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- THREE.JS SCRIPT: TABLET CON HOTSPOT 3D ANCORATI E VISIBILITÀ BASATA SU NORMALE/OCCLUSIONE -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('canvas-container');
+      const pin1El = document.getElementById('pin-1');
+      const pin2El = document.getElementById('pin-2');
+
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xE2ECE9);
+
+      const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+      camera.position.set(3.8, 2.6, 4.6);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      container.appendChild(renderer.domElement);
+
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 1.0;
+
+      // Luci
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.92);
+      scene.add(ambientLight);
+
+      const keyLight = new THREE.DirectionalLight(0xffffff, 0.85);
+      keyLight.position.set(6, 8, 6);
+      keyLight.castShadow = true;
+      scene.add(keyLight);
+
+      const fillLight = new THREE.DirectionalLight(0xE6FFFA, 0.45);
+      fillLight.position.set(-6, -4, -4);
+      scene.add(fillLight);
+
+      // CREAZIONE TABLET CON ANGOLI CURVI
+      const shape = new THREE.Shape();
+      const w = 3.0, h = 2.0, radius = 0.35;
+      
+      shape.moveTo(-w/2 + radius, -h/2);
+      shape.lineTo(w/2 - radius, -h/2);
+      shape.quadraticCurveTo(w/2, -h/2, w/2, -h/2 + radius);
+      shape.lineTo(w/2, h/2 - radius);
+      shape.quadraticCurveTo(w/2, h/2, w/2 - radius, h/2);
+      shape.lineTo(-w/2 + radius, h/2);
+      shape.quadraticCurveTo(-w/2, h/2, -w/2, h/2 - radius);
+      shape.lineTo(-w/2, -h/2 + radius);
+      shape.quadraticCurveTo(-w/2, -h/2, -w/2 + radius, -h/2);
+
+      const extrudeSettings = {
+        steps: 2,
+        depth: 0.8,
+        bevelEnabled: true,
+        bevelThickness: 0.25,
+        bevelSize: 0.25,
+        bevelOffset: 0,
+        bevelSegments: 16
+      };
+
+      const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+      geometry.center();
+
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xFFFFFF,
+        roughness: 0.22,
+        metalness: 0.05
+      });
+
+      const tablet = new THREE.Mesh(geometry, material);
+      tablet.castShadow = true;
+      tablet.receiveShadow = true;
+      tablet.rotation.x = Math.PI / 6;
+      scene.add(tablet);
+
+      // COORDINATE 3D LOCALI DEI DUE PALLINI: UNO SUL FRONTE (+Z) E UNO SUL RETRO (-Z)
+      const localPos1 = new THREE.Vector3(-0.6, 0.3, 0.68);   // Fronte
+      const localPos2 = new THREE.Vector3(0.6, -0.3, -0.68);  // Retro
+      const normal1 = new THREE.Vector3(0, 0, 1);
+      const normal2 = new THREE.Vector3(0, 0, -1);
+
+      const tempVec = new THREE.Vector3();
+      const tempNormal = new THREE.Vector3();
+      const camDir = new THREE.Vector3();
+
+      function updateHotspots() {
+        const halfWidth = container.clientWidth / 2;
+        const halfHeight = container.clientHeight / 2;
+
+        // Aggiorna Punto 1 (Fronte)
+        tempVec.copy(localPos1).applyMatrix4(tablet.matrixWorld);
+        tempNormal.copy(normal1).transformDirection(tablet.matrixWorld);
+        camDir.subVectors(camera.position, tempVec).normalize();
+        const dot1 = tempNormal.dot(camDir);
+
+        if (dot1 > 0.05) {
+          tempVec.project(camera);
+          const x = (tempVec.x * halfWidth) + halfWidth;
+          const y = -(tempVec.y * halfHeight) + halfHeight;
+          pin1El.style.left = `${x}px`;
+          pin1El.style.top = `${y}px`;
+          pin1El.style.opacity = '1';
+          pin1El.style.pointerEvents = 'auto';
+        } else {
+          pin1El.style.opacity = '0';
+          pin1El.style.pointerEvents = 'none';
+        }
+
+        // Aggiorna Punto 2 (Retro)
+        tempVec.copy(localPos2).applyMatrix4(tablet.matrixWorld);
+        tempNormal.copy(normal2).transformDirection(tablet.matrixWorld);
+        camDir.subVectors(camera.position, tempVec).normalize();
+        const dot2 = tempNormal.dot(camDir);
+
+        if (dot2 > 0.05) {
+          tempVec.project(camera);
+          const x = (tempVec.x * halfWidth) + halfWidth;
+          const y = -(tempVec.y * halfHeight) + halfHeight;
+          pin2El.style.left = `${x}px`;
+          pin2El.style.top = `${y}px`;
+          pin2El.style.opacity = '1';
+          pin2El.style.pointerEvents = 'auto';
+        } else {
+          pin2El.style.opacity = '0';
+          pin2El.style.pointerEvents = 'none';
+        }
+      }
+
+      window.addEventListener('resize', () => {
+        const newWidth = container.clientWidth;
+        const newHeight = container.clientHeight;
+        camera.aspect = newWidth / newHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(newWidth, newHeight);
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        tablet.updateMatrixWorld();
+        updateHotspots();
+        renderer.render(scene, camera);
+      }
+      animate();
+    });
+  </script>
+
+</body>
+</html>
