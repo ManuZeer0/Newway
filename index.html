@@ -25,11 +25,11 @@
     }
   </style>
 </head>
-<body class="bg-[#F4F9F8] text-[#0F3832] font-sans antialiased selection:bg-[#E4F874] selection:text-[#0F3832]" x-data="{ mobileMenu: false, selectedFragrance: 'agrumi', leadForm: { email: '', name: '', fragrance: 'agrumi', consent: false }, isSubmitted: false }">
+<body class="bg-[#F4F9F8] text-[#0F3832] font-sans antialiased selection:bg-[#E4F874] selection:text-[#0F3832]" x-data="{ mobileMenu: false, selectedFragrance: 'Fresco Lino', leadForm: { email: '', name: '', fragrance: 'Fresco Lino', consent: false }, isSubmitted: false }">
 
   <!-- TOP BANNER -->
   <div class="bg-[#0D9488] text-white text-xs font-semibold py-2 px-4 text-center tracking-wide">
-    🚀 <strong>Lotto Pilota Italia</strong>: 100 Box di test disponibili &bull; Spedizione e campioni gratuiti in cambio del tuo feedback
+    🚀 <strong>Lotto Pilota Italia</strong>: 100 Box di test disponibili &bull; Spedizione gratuita inserendo il feedback del prodotto
   </div>
 
   <!-- NAVBAR CON HAMBURGER MENU A 3 LINEETTE -->
@@ -70,7 +70,7 @@
               <span>🔬</span> Prodotto & Scheda Tecnica 3D
             </a>
             <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
-              <span>👨🏻‍🔬</span> Chi Siamo (Il Fondatore)
+              <span>👨🏻‍🔬</span> Chi Siamo
             </a>
             <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-[#E6FFFA] hover:text-[#0D9488] transition">
               <span>✉️</span> Contatti & B2B
@@ -199,23 +199,23 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div @click="selectedFragrance = 'agrumi'" :class="selectedFragrance === 'agrumi' ? 'border-[#0D9488] ring-2 ring-[#0D9488]/30 bg-[#E6FFFA]/30' : 'border-slate-200 bg-white'" class="cursor-pointer rounded-2xl p-6 border transition">
-        <span class="text-3xl mb-3 block">🍊</span>
-        <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#0D9488]">SKU 1 &bull; Bestseller Fresco</span>
-        <h3 class="text-lg font-bold text-[#0F3832] mt-1 mb-2">Agrumi & Brezza Marina</h3>
-        <p class="text-xs text-slate-600 leading-relaxed">Note agrumate frizzanti e freschezza persistente. Ideale per il bucato quotidiano.</p>
+      <div @click="s = 'Fresco Lino'" :class="s === 'Fresco Lino' ? 'border-[#0D9488] ring-2 ring-[#0D9488]/30 bg-[#E6FFFA]/30' : 'border-slate-200 bg-white'" class="cursor-pointer rounded-2xl p-6 border transition">
+        <span class="text-3xl mb-3 block">🌬️</span>
+        <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#0D9488]">SKU 1 &bull; Bestseller: Fresco Lino</span>
+        <h3 class="text-lg font-bold text-[#0F3832] mt-1 mb-2">Fresco Lino</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">La delicatezza del lino. Ideale per il bucato quotidiano.</p>
       </div>
 
-      <div @click="selectedFragrance = 'cedro'" :class="selectedFragrance === 'cedro' ? 'border-[#0D9488] ring-2 ring-[#0D9488]/30 bg-[#E6FFFA]/30' : 'border-slate-200 bg-white'" class="cursor-pointer rounded-2xl p-6 border transition">
+      <div @click="s = 'Lavanda'" :class="s === 'Lavanda' ? 'border-[#0D9488] ring-2 ring-[#0D9488]/30 bg-[#E6FFFA]/30' : 'border-slate-200 bg-white'" class="cursor-pointer rounded-2xl p-6 border transition">
         <span class="text-3xl mb-3 block">🌲</span>
-        <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#0D9488]">SKU 2 &bull; Caldo & Botanico</span>
-        <h3 class="text-lg font-bold text-[#0F3832] mt-1 mb-2">Legno di Cedro & Note Ambrate</h3>
-        <p class="text-xs text-slate-600 leading-relaxed">Profondo, rilassante, per lenzuola, asciugamani e capi che meritano una coccola.</p>
+        <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#0D9488]">SKU 2 &bull; Aromata e Balsamica </span>
+        <h3 class="text-lg font-bold text-[#0F3832] mt-1 mb-2">Lavanda/h3>
+        <p class="text-xs text-slate-600 leading-relaxed">Profonda, rilassante, per lenzuola, asciugamani e capi che meritano una coccola.</p>
       </div>
 
       <div @click="selectedFragrance = 'neutro'" :class="selectedFragrance === 'neutro' ? 'border-[#0D9488] ring-2 ring-[#0D9488]/30 bg-[#E6FFFA]/30' : 'border-slate-200 bg-white'" class="cursor-pointer rounded-2xl p-6 border transition">
         <span class="text-3xl mb-3 block">☁️</span>
-        <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#0D9488]">SKU 3 &bull; Ipoallergenico Puro</span>
+        <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#0D9488]">SKU 3 &bull; Ipoallergenico</span>
         <h3 class="text-lg font-bold text-[#0F3832] mt-1 mb-2">Pure Essential (0% Profumo)</h3>
         <p class="text-xs text-slate-600 leading-relaxed">0% allergeni, 0% fragranza. Ideale per neonati, pelli atopiche e soggetti sensibili.</p>
       </div>
@@ -248,8 +248,8 @@
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Fragranza scelta</label>
             <select x-model="selectedFragrance" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-[#0D9488] bg-white">
-              <option value="agrumi">🍊 Agrumi & Brezza Marina</option>
-              <option value="cedro">🌲 Legno di Cedro & Note Ambrate</option>
+              <option value="Fresco Lino">🌬️ Fresco Lino</option>
+              <option value="Lavanda">🪻 Lavanda</option>
               <option value="neutro">☁️ Pure Essential (0% Profumo)</option>
             </select>
           </div>
