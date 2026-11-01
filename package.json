@@ -1,0 +1,12 @@
+{
+  "name": "neway-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend lista d'attesa e contatti per Project NeWay (Vercel Functions + Supabase)",
+  "scripts": {
+    "test": "node test/test-unit.mjs && node test/test-frontend.mjs && node test/test-e2e.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
